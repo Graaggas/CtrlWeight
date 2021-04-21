@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
@@ -30,13 +31,68 @@ class _IntroScreenState extends State<IntroScreen> {
         color: Colors.blueGrey,
         slides: [
           Container(
-            child: Scaffold(body: Center(child: Text("111"))),
+            child: Scaffold(
+              body: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      colorBackgroindGradientStart,
+                      colorBackgroindGradientMiddle,
+                      colorBackgroindGradientEnd,
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(0.0, 4.0),
+                    // stops: [0.0, 1.0],
+                    tileMode: TileMode.clamp,
+                  ),
+                ),
+                child: Center(
+                  child: Text("111"),
+                ),
+              ),
+            ),
           ),
           Container(
-            child: Scaffold(body: Center(child: Text("222"))),
+            child: Scaffold(
+              body: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        colorBackgroindGradientStart,
+                        colorBackgroindGradientMiddle,
+                        colorBackgroindGradientEnd,
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(0.0, 4.0),
+                      // stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text("222"),
+                  )),
+            ),
           ),
           Container(
-            child: Scaffold(body: Center(child: Text("333"))),
+            child: Scaffold(
+              body: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        colorBackgroindGradientStart,
+                        colorBackgroindGradientMiddle,
+                        colorBackgroindGradientEnd,
+                      ],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(0.0, 4.0),
+                      // stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text("333"),
+                  )),
+            ),
           ),
         ],
         pageController: _pageController,
@@ -51,11 +107,11 @@ class _IntroScreenState extends State<IntroScreen> {
           },
           backButton: Icon(Boxicons.bx_left_arrow),
           doneButtonText: "ГОТОВО",
-          skipButtonTextStyle: GoogleFonts.robotoSlab(
+          skipButtonTextStyle: GoogleFonts.play(
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
-          doneButtonTextStyle: GoogleFonts.robotoSlab(
+          doneButtonTextStyle: GoogleFonts.play(
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),

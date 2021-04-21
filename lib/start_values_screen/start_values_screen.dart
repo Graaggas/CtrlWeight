@@ -1,73 +1,35 @@
+import 'package:ctrl_weight/misc/colors.dart';
+import 'package:ctrl_weight/misc/customAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StartValuesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: colorBackgroindGradientStart,
         appBar: MyCustomAppBar(
-          height: 150,
+          height: size.height * 0.103,
         ),
-        body: Center(
-          child: Text("START VALUES SCREEN"),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                colorBackgroindGradientStart,
+                colorBackgroindGradientMiddle,
+                colorBackgroindGradientEnd,
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(0.0, 4.0),
+              // stops: [0.0, 1.0],
+              tileMode: TileMode.clamp,
+            ),
+          ),
+          child: Center(child: Text("START VALUES SCREEN")),
         ),
       ),
     );
   }
-}
-
-class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double height;
-
-  const MyCustomAppBar({
-    Key key,
-    @required this.height,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.white,
-          child: Padding(
-            padding: EdgeInsets.all(6),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              padding: EdgeInsets.all(5),
-              child: Row(children: [
-                IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    //Scaffold.of(context).openDrawer();
-                  },
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.grey,
-                    child: Text(
-                      "HIGHLIGHT",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.verified_user),
-                  onPressed: () => null,
-                ),
-              ]),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
 }

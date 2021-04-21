@@ -14,7 +14,7 @@ class LandingPage extends ConsumerWidget {
 
     return Scaffold(
 
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: Center(
         child: futureFlag.map(
           data: (data) => data.value ? IntroScreen() : Text("FALSE. Dashboard"),
