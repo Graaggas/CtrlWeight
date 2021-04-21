@@ -17,7 +17,7 @@ class LandingPage extends ConsumerWidget {
       appBar: AppBar(),
       body: Center(
         child: futureFlag.map(
-          data: (data) => data.value ? IntroScreen() : Text("FALSE"),
+          data: (data) => data.value ? IntroScreen() : Text("FALSE. Dashboard"),
           loading: (_) => CircularProgressIndicator(),
           error: (message) => Text(message.error),
         ),
