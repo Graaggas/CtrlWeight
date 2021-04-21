@@ -14,7 +14,7 @@ class IsFirstMeetingFlagModel {
   }
 
   void changeFlag() {
-    // database.setIsFirstMeetingFlagToFalse();
+     database.changeFirstMeetingFlagToFalse();
   }
 
   Future<bool> getFlagFromHive() {

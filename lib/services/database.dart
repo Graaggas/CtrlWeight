@@ -8,6 +8,14 @@ class Database {
   }
 
   //region >> FirstMeetingFlag
+  Future<void> changeFirstMeetingFlagToFalse() async {
+    final box = await openBox("IsFirstMeetingFlag");
+    var model = box.getAt(0);
+    model.isFirstMeetingFlag = false;
+    model.save();
+    print("|Database|\t isFirstMeetingFlag changed to {${model.isFirstMeetingFlag.toString()}}");
+  }
+
   Future<bool> getIsFirstMeetingFlag() async {
     final box = await openBox("IsFirstMeetingFlag");
     try {
@@ -18,7 +26,7 @@ class Database {
           return true;
         } else {
           print(
-              "|Database|\t isFirstMeetingModel is not null. returning ${model.isFirstMeetingFlag} from Hive Flag Model");
+              "|Database|\t isFirstMeetingModel is not null. returning {${model.isFirstMeetingFlag}} from Hive Flag Model");
           return model.isFirstMeetingFlag;
         }
         // if (isFistMeetingModel == null) {
@@ -34,8 +42,7 @@ class Database {
         print("|Database|\t box with isFirstFlag is empty ");
         // create and save in box
         var model = IsFirstMeetingFlagging();
-        model.isFirstMeetingFlag = false;
-        print("${model.isFirstMeetingFlag.toString()}");
+        model.isFirstMeetingFlag = true;
         box.add(model);
         // model = box.getAt(0);
         // print("${model.isFirstMeetingFlag.toString()}");

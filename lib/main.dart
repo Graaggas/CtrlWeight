@@ -1,5 +1,7 @@
 import 'package:ctrl_weight/hive_models/models.dart';
+import 'package:ctrl_weight/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/lading_page.dart';
+import 'package:ctrl_weight/start_values_screen/start_values_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -21,12 +23,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "/",
+      routes: {
+        '/': (context)=>LandingPage(),
+        '/intro_screen': (context) => IntroScreen(),
+        '/start_values_screen': (context) => StartValuesScreen(),
+      },
       title: 'Ctrl+Weight',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LandingPage(),
+
     );
   }
 }

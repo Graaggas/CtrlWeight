@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:getwidget/getwidget.dart';
@@ -22,6 +23,9 @@ class _IntroScreenState extends State<IntroScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Database();
+
+
     return SafeArea(child: GFIntroScreen(
       color: Colors.blueGrey,
       slides: [
@@ -43,6 +47,8 @@ class _IntroScreenState extends State<IntroScreen> {
         skipButtonText: "ОТМЕНА",
         onSkipTap: () {
           //Get.off(() => FirstMeeting());
+          database.changeFirstMeetingFlagToFalse();
+          Navigator.pushNamed(context, '/start_values_screen');
         },
         backButton: Icon(Boxicons.bx_left_arrow),
         doneButtonText: "ГОТОВО",
@@ -58,7 +64,8 @@ class _IntroScreenState extends State<IntroScreen> {
         ),
 
         onDoneTap: () {
-         // Get.off(() => FirstMeeting());
+          database.changeFirstMeetingFlagToFalse();
+          Navigator.pushNamed(context, '/start_values_screen');
         },
         pageController: _pageController,
         pageCount: 3,

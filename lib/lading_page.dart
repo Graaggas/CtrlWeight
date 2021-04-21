@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/provider_models/firstflagmeeting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,16 +11,13 @@ class LandingPage extends ConsumerWidget {
     // final firstMeetingFlag = watch(isFirstFlagMeetingProvider).getFlag();
     final futureFlag = watch(futureGetFlagProvider);
 
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read(getFlagProvider).changeFlag();
-        },
-      ),
+
       appBar: AppBar(),
       body: Center(
         child: futureFlag.map(
-          data: (data) => data.value ? Text("TRUE") : Text("FALSE"),
+          data: (data) => data.value ? IntroScreen() : Text("FALSE"),
           loading: (_) => CircularProgressIndicator(),
           error: (message) => Text(message.error),
         ),
