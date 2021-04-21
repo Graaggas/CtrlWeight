@@ -1,0 +1,32 @@
+import 'package:ctrl_weight/hive_models/models.dart';
+import 'package:ctrl_weight/lading_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Hive.registerAdapter(WeightModelAdapter());
+  Hive.registerAdapter(WaisteModelAdapter());
+  Hive.registerAdapter(IsFirstMeetingFlaggingAdapter());
+
+  var dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+  runApp(ProviderScope(child: MyApp()));
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Ctrl+Weight',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LandingPage(),
+    );
+  }
+}
