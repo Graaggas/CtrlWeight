@@ -1,12 +1,20 @@
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/misc/customAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class StartValuesScreen extends StatelessWidget {
+class StartValuesScreen extends StatefulWidget {
+  @override
+  _StartValuesScreenState createState() => _StartValuesScreenState();
+}
+
+class _StartValuesScreenState extends State<StartValuesScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final _formKey = GlobalKey<FormState>();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: colorBackgroindGradientStart,
@@ -27,7 +35,85 @@ class StartValuesScreen extends StatelessWidget {
               tileMode: TileMode.clamp,
             ),
           ),
-          child: Center(child: Text("START VALUES SCREEN")),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 32,
+                  right: 32,
+                  top: 16,
+                  bottom: 16,
+                ),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Введите значение";
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    focusColor: Colors.blue,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    fillColor: colorAppBarGradientStart,
+                    filled: true,
+                    hintText: 'Желаемый вес, кг',
+                    // enabled: checkController.getWaisteChecking
+                    //     ? true
+                    //     : false,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 32,
+                  right: 32,
+                  top: 16,
+                  bottom: 16,
+                ),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Введите значение";
+                    }
+                    return null;
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    focusColor: Colors.blue,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    fillColor: colorAppBarGradientStart,
+                    filled: true,
+                    hintText: 'Рост, см',
+                    // enabled: checkController.getWaisteChecking
+                    //     ? true
+                    //     : false,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 5, primary: colorButtons),
+                onPressed: () {},
+                child: Text(
+                  "Добавить",
+                  style: GoogleFonts.play(
+                    color: colorTextIcons,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

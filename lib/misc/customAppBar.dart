@@ -1,5 +1,6 @@
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -51,7 +52,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       color: colorAppBarButtons,
                       borderRadius: BorderRadius.all(Radius.circular(8.0))),
                   child: IconButton(
-                    icon: Icon(Icons.menu),
+                    icon: Icon(Boxicons.bx_menu, color: colorTextIcons,),
                     onPressed: () {
                       //Scaffold.of(context).openDrawer();
                     },
@@ -71,7 +72,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           "НАЧАЛЬНЫЕ ЗНАЧЕНИЯ",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.play(
-                            color: colorTextInPanels,
+                            color: colorTextIcons,
                             fontSize: 18,
                           ),
                         ),
@@ -84,7 +85,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       color: colorAppBarButtons,
                       borderRadius: BorderRadius.all(Radius.circular(8.0))),
                   child: IconButton(
-                    icon: Icon(Icons.verified_user),
+                    icon: Icon(Boxicons.bx_plus, color: colorTextIcons,),
                     onPressed: () => null,
                   ),
                 ),
