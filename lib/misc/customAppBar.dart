@@ -5,16 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
+  final String header;
 
   const MyCustomAppBar({
     Key key,
-    @required this.height,
+    @required this.height, this.header,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return
         Container(
           decoration: BoxDecoration(
               // gradient: LinearGradient(
@@ -69,7 +69,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           right: 8.0,
                         ),
                         child: Text(
-                          "НАЧАЛЬНЫЕ ЗНАЧЕНИЯ",
+                          header,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.play(
                             color: colorTextIcons,
@@ -92,8 +92,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ]),
             ),
           ),
-        ),
-      ],
+
     );
   }
 

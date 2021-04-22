@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/dashboard/dashboard.dart';
 import 'package:ctrl_weight/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/provider_models/firstflagmeeting_provider.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class LandingPage extends ConsumerWidget {
       // appBar: AppBar(),
       body: Center(
         child: futureFlag.map(
-          data: (data) => data.value ? IntroScreen() : Text("FALSE. Dashboard"),
+          data: (data) => data.value ? IntroScreen() : DashboardScreen(),
           loading: (_) => CircularProgressIndicator(),
           error: (message) => Text(message.error),
         ),

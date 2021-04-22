@@ -13,7 +13,8 @@ class Database {
     var model = box.getAt(0);
     model.isFirstMeetingFlag = false;
     model.save();
-    print("|Database|\t isFirstMeetingFlag changed to {${model.isFirstMeetingFlag.toString()}}");
+    print(
+        "|Database|\t isFirstMeetingFlag changed to {${model.isFirstMeetingFlag.toString()}}");
   }
 
   Future<bool> getIsFirstMeetingFlag() async {
@@ -29,15 +30,7 @@ class Database {
               "|Database|\t isFirstMeetingModel is not null. returning {${model.isFirstMeetingFlag}} from Hive Flag Model");
           return model.isFirstMeetingFlag;
         }
-        // if (isFistMeetingModel == null) {
-        //   print("|Database|\t isFirstMeetingModel is null. Returning true");
-        //   return true;
-        // } else {
-        //   print(
-        //       "|Database|\t isFirstMeetingModel is not null : ${isFistMeetingModel.isFirstMeetingFlag}, returning it");
-        //   return isFistMeetingModel.isFirstMeetingFlag;
-        return false;
-        // }
+
       } else {
         print("|Database|\t box with isFirstFlag is empty ");
         // create and save in box
@@ -57,23 +50,41 @@ class Database {
     }
   }
 
-// Future<void> setIsFirstMeetingFlagToFalse() async {
-//   final box = await openBox("IsFirstMeetingFlag");
-//   try {
-//     isFistMeetingModel = box.getAt(0);
-//     isFistMeetingModel.isFirstMeetingFlag = false;
-//     isFistMeetingModel.save();
-//     print(
-//         "|Database|\t isFirstMeetingFlag set as false due to not first meeting");
-//   } catch (e) {
-//     print(
-//         "|Database|\t error in setting IsFirstMeetingFlag into Hive, text of error : $e");
-//
-//     isFistMeetingModel.isFirstMeetingFlag = false;
-//     isFistMeetingModel.save();
-//     box.add(isFistMeetingModel);
-//   }
-// }
+
 //endregion
 
+  // region >> Weight
+  Future<void> saveWantedWeight(double value) async {
+    final box = await openBox("Weight");
+    try {
+      if (box.isNotEmpty) {
+        WeightModel model = box.getAt(0);
+
+        if (model == null) {
+          print("|Database|\t Weight is null");
+          return true;
+        } else {
+          print(
+              "|Database|\t Weight is not null. old wanted Weight is {${model.wantedWeight.toString()}}");
+
+          model.addWantedWeight(value);
+          model.save();
+          print(
+              "|Database|\t Weight is not null. saving wanted Weight as {$value}");
+        }
+      } else {
+        print("|Database|\t box with Weights is empty ");
+        // create and save in box
+        var model = WeightModel();
+        model.addWantedWeight(value);
+        box.add(model);
+        print(
+            "|Database|\t Weight is not null. saving wanted Weight as {$value}");
+      }
+    } catch (e) {
+      print(
+          "|Database|\t error in saving WantedWeight to Hive box, text of error : $e");
+    }
+  }
+//endregion
 }

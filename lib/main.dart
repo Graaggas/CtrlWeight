@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/dashboard/dashboard.dart';
 import 'package:ctrl_weight/hive_models/models.dart';
 import 'package:ctrl_weight/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/lading_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/': (context)=>LandingPage(),
         '/intro_screen': (context) => IntroScreen(),
         '/start_values_screen': (context) => StartValuesScreen(),
+        '/dashboard_screen': (context)=> DashboardScreen(),
       },
       title: 'Ctrl+Weight',
       debugShowCheckedModeBanner: false,
