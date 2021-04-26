@@ -36,47 +36,73 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Panel(
-                  size: sizeScreen,
-                  currentText: "ТЕКУЩИЙ ВЕС",
-                  currentValue: 138.2,
-                  currentDiff: -12.01,
-                  measure: " кг",
-                  valueOfFill: 2,
-                  startValue: 130,
-                  wantedValue: 90,
-                  colorStart: colorWeightProgressLineEnd,
-                  colorEnd: colorWeightProgressLineStart,
-                ),
-                Panel(
-                  size: sizeScreen,
-                  currentText: "ТЕКУЩИЙ ОБЪЕМ",
-                  currentValue: 111.02,
-                  currentDiff: 11.1,
-                  measure: " см",
-                  valueOfFill: 3,
-                  startValue: 112,
-                  wantedValue: 101,
-                  colorStart: colorWaisteProgressLineStart,
-                  colorEnd: colorWaistePRogressLineEnd,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 32.0, top: 16, right: 32),
-                  child:
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          WidgetAverage(sizeScreen: sizeScreen),
-                          WidgetAverage(sizeScreen: sizeScreen),
-                        ],
-                      ),
-
-
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Panel(
+                    size: sizeScreen,
+                    currentText: "ТЕКУЩИЙ ВЕС",
+                    currentValue: 138.2,
+                    currentDiff: -12.01,
+                    measure: " кг",
+                    valueOfFill: 2,
+                    startValue: 130,
+                    wantedValue: 90,
+                    colorStart: colorWeightProgressLineEnd,
+                    colorEnd: colorWeightProgressLineStart,
+                  ),
+                  Panel(
+                    size: sizeScreen,
+                    currentText: "ТЕКУЩИЙ ОБЪЕМ",
+                    currentValue: 111.02,
+                    currentDiff: 11.1,
+                    measure: " см",
+                    valueOfFill: 3,
+                    startValue: 112,
+                    wantedValue: 101,
+                    colorStart: colorWaisteProgressLineStart,
+                    colorEnd: colorWaistePRogressLineEnd,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 32.0, top: 16, right: 32),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        WidgetAverage(
+                          sizeScreen: sizeScreen,
+                          typeOfAverage: "НЕДЕЛЯ",
+                        ),
+                        WidgetAverage(
+                          sizeScreen: sizeScreen,
+                          typeOfAverage: "14 ДНЕЙ",
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 32.0, top: 16, right: 32),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        WidgetAverage(
+                          sizeScreen: sizeScreen,
+                          typeOfAverage: "МЕСЯЦ",
+                        ),
+                        WidgetAverage(
+                          sizeScreen: sizeScreen,
+                          typeOfAverage: "ВСЕГО",
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -89,38 +115,133 @@ class WidgetAverage extends StatelessWidget {
   const WidgetAverage({
     Key key,
     @required this.sizeScreen,
+    this.typeOfAverage,
   }) : super(key: key);
 
   final Size sizeScreen;
+  final String typeOfAverage;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.topCenter,
       children: [
+        Positioned.fill(
+          child: Container(color: Colors.grey, child: Text('foo')),
+        ),
         AverageContainer(sizeScreen: sizeScreen),
         Positioned(
-          top: 10,
-          left: 35,
           child: Container(
-            decoration: BoxDecoration(
-              color: colorPanel,
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "НЕДЕЛЯ",
-                style: GoogleFonts.play(
-                  color: colorAppBarGradientEnd,
-                  fontSize: 18,
+            height: sizeScreen.width / 2.5,
+            width: sizeScreen.width / 2.5,
+            alignment: Alignment.center,
+            // color: Colors.blue[100],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0.0),
+                      child: CustomPaint(
+                        size:
+                            Size(sizeScreen.width / 3.5, sizeScreen.width / 10),
+                        painter: ContainerAveragePeriod(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0.0),
+                      child: Text(
+                        typeOfAverage,
+                        style: GoogleFonts.play(
+                          color: colorAppBarGradientEnd,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+                SizedBox(height: 10 ,),
+                Text(
+                  "+13 кг",
+                  style: GoogleFonts.play(
+                    color: colorTextInWhitePanels,
+                    fontSize: 22,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    color: Colors.grey[300],
+                    height: 2,
+                    width: sizeScreen.width / 4,
+                  ),
+                ),
+                Text(
+                  "-9 см",
+                  style: GoogleFonts.play(
+                    color: colorTextInWhitePanels,
+                    fontSize: 22,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ],
+      // alignment: Alignment.topCenter,
+      // children: [
+      //   AverageContainer(sizeScreen: sizeScreen),
+      //   Column(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: [
+      //       Stack(
+      //         alignment: Alignment.topCenter,
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.only(top: 16.0),
+      //             child: CustomPaint(
+      //               size: Size(sizeScreen.width / 3.5, sizeScreen.width / 10),
+      //               painter: ContainerAveragePeriod(),
+      //             ),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.only(top: 25.0),
+      //             child: Text(
+      //               typeOfAverage,
+      //               style: GoogleFonts.play(
+      //                 color: colorAppBarGradientEnd,
+      //                 fontSize: 20,
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //       Text(
+      //         "+13 кг",
+      //         style: GoogleFonts.play(
+      //           color: colorTextInWhitePanels,
+      //           fontSize: 18,
+      //         ),
+      //       ),
+      //       Container(
+      //         color: Colors.grey[300],
+      //         height: 2,
+      //         width: sizeScreen.width / 4,
+      //       ),
+      //       Text(
+      //         "-9 см",
+      //         style: GoogleFonts.play(
+      //           color: colorTextInWhitePanels,
+      //           fontSize: 18,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      //
+      //],
     );
   }
 }
@@ -137,12 +258,12 @@ class AverageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size(sizeScreen.width / 2.5, sizeScreen.width / 2.5),
-      painter: RPSCustomPainter(),
+      painter: PainterForAverageContainer(),
     );
   }
 }
 
-class RPSCustomPainter extends CustomPainter {
+class PainterForAverageContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_0 = new Paint()
@@ -175,6 +296,43 @@ class RPSCustomPainter extends CustomPainter {
     path_0.close();
 
     canvas.drawShadow(path_0, Colors.grey[200], 4, true);
+    canvas.drawPath(path_0, paint_0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class ContainerAveragePeriod extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint_0 = new Paint()
+      ..color = colorPanel
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.0500000, size.height * 0.1000000);
+    path_0.quadraticBezierTo(size.width * 0.1060000, size.height * -0.0058000,
+        size.width * 0.2500000, 0);
+    path_0.lineTo(size.width * 0.5000000, 0);
+    path_0.lineTo(size.width * 0.7500000, 0);
+    path_0.lineTo(size.width, 0);
+    path_0.lineTo(size.width, size.height * 0.5000000);
+    path_0.quadraticBezierTo(size.width * 0.9994500, size.height * 0.8000000,
+        size.width * 0.9500000, size.height * 0.9000000);
+    path_0.quadraticBezierTo(size.width * 0.9012000, size.height * 0.9964000,
+        size.width * 0.7500000, size.height);
+    path_0.lineTo(size.width * 0.5000000, size.height);
+    path_0.lineTo(size.width * 0.2500000, size.height);
+    path_0.lineTo(0, size.height);
+    path_0.lineTo(0, size.height * 0.5000000);
+    path_0.quadraticBezierTo(size.width * -0.0007000, size.height * 0.2001000,
+        size.width * 0.0500000, size.height * 0.1000000);
+    path_0.close();
+
     canvas.drawPath(path_0, paint_0);
   }
 
