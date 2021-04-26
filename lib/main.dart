@@ -5,6 +5,7 @@ import 'package:ctrl_weight/lading_page.dart';
 import 'package:ctrl_weight/start_values_screen/start_values_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -26,17 +27,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: "/",
       routes: {
-        '/': (context)=>LandingPage(),
+        '/': (context) => LandingPage(),
         '/intro_screen': (context) => IntroScreen(),
         '/start_values_screen': (context) => StartValuesScreen(),
-        '/dashboard_screen': (context)=> DashboardScreen(),
+        '/dashboard_screen': (context) => DashboardScreen(),
       },
       title: 'Ctrl+Weight',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.playTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
-
     );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:ctrl_weight/misc/colors.dart';
+import 'package:ctrl_weight/provider_models/weight_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Panel extends StatelessWidget {
+class Panel extends ConsumerWidget {
   const Panel({
     Key key,
     @required this.size,
@@ -15,6 +17,7 @@ class Panel extends StatelessWidget {
     this.wantedValue,
     this.colorStart,
     this.colorEnd,
+    this.typeOfProvider,
   }) : super(key: key);
 
   final Size size;
@@ -27,10 +30,13 @@ class Panel extends StatelessWidget {
   final double wantedValue;
   final Color colorStart;
   final Color colorEnd;
+  final FutureProvider<double> typeOfProvider;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ScopedReader watch) {
     GlobalKey _keyWeight = GlobalKey();
+
+    final futureCurrentValue = watch(typeOfProvider);
 
     getSizeOfWeightProgress() {
       final RenderBox renderBoxWeight =
@@ -88,13 +94,24 @@ class Panel extends StatelessWidget {
               fit: BoxFit.scaleDown,
               child: Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  "${currentValue.toString()} $measure",
-                  style: GoogleFonts.play(
-                    color: colorTextInPanels,
-                    fontSize: 32,
+                child: futureCurrentValue.map(
+                  data: (data) => Text(
+                    "${data.value.toString()} $measure",
+                    style: GoogleFonts.play(
+                      color: colorTextInPanels,
+                      fontSize: 32,
+                    ),
                   ),
+                  loading: (_) => CircularProgressIndicator(),
+                  error: (message) => Text(message.error),
                 ),
+                //  Text(
+                //   "${currentValue.toString()} $measure",
+                //   style: GoogleFonts.play(
+                //     color: colorTextInPanels,
+                //     fontSize: 32,
+                //   ),
+                // ),
               ),
             ),
             Padding(
@@ -182,7 +199,6 @@ class Panel extends StatelessWidget {
                 ],
               ),
             ),
-
           ],
         ),
       ),

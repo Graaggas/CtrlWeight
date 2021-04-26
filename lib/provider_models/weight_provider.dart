@@ -17,7 +17,20 @@ class WeightDataForProvider {
   Future<void> saveWantedWeight(double value) async {
     return database.saveWantedWeight(value);
   }
+
+  Future<void> addWeight(double value) async {
+    return database.addWeight(value);
+  }
+
+  Future<double> getCurrentWeight() async {
+    return database.getCurrentWeight();
+  }
 }
 
-final weightProvider = Provider<WeightDataForProvider>((ref)=>WeightDataForProvider());
+final weightProvider =
+    Provider<WeightDataForProvider>((ref) => WeightDataForProvider());
 
+final futureCurrentWeightProvider = FutureProvider<double>((ref) async {
+  final f = ref.read(weightProvider);
+  return f.getCurrentWeight();
+});
