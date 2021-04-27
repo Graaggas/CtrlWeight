@@ -117,13 +117,13 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: colorAppBarButtons,
+                  color: rightAppbarButton == RightAppbarButton.empty ? colorAppBarGradientEnd : colorAppBarButtons,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: rightAppbarButton == RightAppbarButton.empty
                   ? IconButton(
                       icon: Icon(
                         Boxicons.bx_plus,
-                        color: colorAppBarButtons,
+                        color: colorAppBarGradientEnd,
                       ),
                       onPressed: () {},
                     )
@@ -153,11 +153,12 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           case ChoosingTypeOfValue.waiste:
                             print(
                                 "|CustomAppBar| adding new waiste choosed...");
-                            AddValuePage.show(context);
+                            AddValuePage.show(context, ChoosingTypeOfValue.waiste);
                             break;
                           case ChoosingTypeOfValue.weight:
                             print(
                                 "|CustomAppBar| adding new weight choosed...");
+                            AddValuePage.show(context, ChoosingTypeOfValue.weight);
                             break;
                         }
                       },
