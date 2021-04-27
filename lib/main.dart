@@ -1,7 +1,7 @@
-import 'package:ctrl_weight/dashboard/dashboard.dart';
 import 'package:ctrl_weight/hive_models/models.dart';
-import 'package:ctrl_weight/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/lading_page.dart';
+import 'package:ctrl_weight/screens/dashboard/dashboard.dart';
+import 'package:ctrl_weight/screens/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/start_values_screen/start_values_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

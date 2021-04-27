@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:ctrl_weight/misc/colors.dart';
+import 'package:ctrl_weight/screens/add-values/add-value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,14 +10,28 @@ enum ChoosingTypeOfValue {
   waiste,
 }
 
+enum RightAppbarButton {
+  plus,
+  empty,
+}
+
+enum LeftAppbarButton {
+  menu,
+  backArrow,
+}
+
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final String header;
+  final RightAppbarButton rightAppbarButton;
+  final LeftAppbarButton leftAppbarButton;
 
   const MyCustomAppBar({
     Key key,
     @required this.height,
     this.header,
+    this.rightAppbarButton,
+    this.leftAppbarButton,
   }) : super(key: key);
 
   @override
@@ -57,15 +72,26 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                   color: colorAppBarButtons,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              child: IconButton(
-                icon: Icon(
-                  Boxicons.bx_menu,
-                  color: colorTextIcons,
-                ),
-                onPressed: () {
-                  //Scaffold.of(context).openDrawer();
-                },
-              ),
+              child: leftAppbarButton == LeftAppbarButton.backArrow
+                  ? IconButton(
+                      icon: Icon(
+                        Boxicons.bx_arrow_back,
+                        color: colorTextIcons,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        //Scaffold.of(context).openDrawer();
+                      },
+                    )
+                  : IconButton(
+                      icon: Icon(
+                        Boxicons.bx_menu,
+                        color: colorTextIcons,
+                      ),
+                      onPressed: () {
+                        //Scaffold.of(context).openDrawer();
+                      },
+                    ),
             ),
             Expanded(
               child: Container(
@@ -93,47 +119,49 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                   color: colorAppBarButtons,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
-              child: IconButton(
-                icon: Icon(
-                  Boxicons.bx_plus,
-                  color: colorTextIcons,
-                ),
-                onPressed: () async {
-                  var r = await showModalActionSheet(
-                    context: context,
-                    actions: [
-                      SheetAction(
-                        icon: Boxicons.bx_tachometer,
-                        label: "Добавить результаты взвешивания",
-                        key: ChoosingTypeOfValue.weight,
+              child: rightAppbarButton == RightAppbarButton.empty
+                  ? IconButton(
+                      icon: Icon(
+                        Boxicons.bx_plus,
+                        color: colorAppBarButtons,
                       ),
-                      SheetAction(
-                        key: ChoosingTypeOfValue.waiste,
-                        label: "Добавить результаты измерения объема талии",
-                        icon: Boxicons.bx_ruler,
+                      onPressed: () {},
+                    )
+                  : IconButton(
+                      icon: Icon(
+                        Boxicons.bx_plus,
+                        color: colorTextIcons,
                       ),
-                    ],
-                  );
-                  switch (r) {
-                    case ChoosingTypeOfValue.waiste:
-                      print("|CustomAppBar| adding new waiste choosed...");
-                      var dialog = await showTextInputDialog(
+                      onPressed: () async {
+                        var r = await showModalActionSheet(
                           context: context,
-                          title: "Добавить результаты измерения объема талии",
-                          textFields: [
-                            DialogTextField(
-                              //TODO добавить валидатор
-                              initialText: "",
-                              keyboardType: TextInputType.number,
+                          actions: [
+                            SheetAction(
+                              icon: Boxicons.bx_tachometer,
+                              label: "Добавить результаты взвешивания",
+                              key: ChoosingTypeOfValue.weight,
                             ),
-                          ]);
-                      break;
-                    case ChoosingTypeOfValue.weight:
-                      print("|CustomAppBar| adding new weight choosed...");
-                      break;
-                  }
-                },
-              ),
+                            SheetAction(
+                              key: ChoosingTypeOfValue.waiste,
+                              label:
+                                  "Добавить результаты измерения объема талии",
+                              icon: Boxicons.bx_ruler,
+                            ),
+                          ],
+                        );
+                        switch (r) {
+                          case ChoosingTypeOfValue.waiste:
+                            print(
+                                "|CustomAppBar| adding new waiste choosed...");
+                            AddValuePage.show(context);
+                            break;
+                          case ChoosingTypeOfValue.weight:
+                            print(
+                                "|CustomAppBar| adding new weight choosed...");
+                            break;
+                        }
+                      },
+                    ),
             ),
           ]),
         ),
