@@ -25,13 +25,14 @@ dependencies:
     sdk: flutter
   hive_generator: ^1.0.1
   hive_flutter: ^1.0.0
-  flutter_riverpod: ^0.14.0+1
   path_provider: ^2.0.1
   freezed: ^0.14.1+2
+  freezed_annotation: ^0.14.1
   getwidget: ^1.2.4
   google_fonts: ^2.0.0
   flutter_boxicons: ^2.0.2
   adaptive_dialog: ^0.10.0+5
+  get: ^4.1.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

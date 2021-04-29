@@ -1,26 +1,33 @@
-import 'package:ctrl_weight/provider_models/firstflagmeeting_provider.dart';
+import 'package:ctrl_weight/controllers/firstMeetingFlagController.dart';
 import 'package:ctrl_weight/screens/dashboard/dashboard.dart';
 import 'package:ctrl_weight/screens/intro_screens/intro_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
-class LandingPage extends ConsumerWidget {
+class LandingPage extends StatelessWidget {
   const LandingPage({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    // final firstMeetingFlag = watch(isFirstFlagMeetingProvider).getFlag();
-    final futureFlag = watch(futureGetFlagProvider);
+  Widget build(BuildContext context) {
+    FirstMeetingFlagController flagController = Get.find();
 
-    return Scaffold(
-      // appBar: AppBar(),
-      body: Center(
-        child: futureFlag.map(
-          data: (data) => data.value ? IntroScreen() : DashboardScreen(),
-          loading: (_) => CircularProgressIndicator(),
-          error: (message) => Text(message.error),
-        ),
-      ),
-    );
+
+
+    return FutureBuilder<bool>(
+        future: flagController.getFlagFromHive(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            print("|LandingPage| flag = ${snapshot.data}");
+            return snapshot.data == true
+                ? IntroScreen()
+                : DashboardScreen();
+          } else {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+        });
   }
 }

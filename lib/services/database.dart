@@ -23,15 +23,13 @@ class Database {
       if (box.isNotEmpty) {
         var model = box.getAt(0);
         if (model == null) {
-          print("|Database|\t isFirstMeetingModel is null. Returning true");
-          WeightModel modelWeight = WeightModel();
-          modelWeight.addWeight(0);
-          box.add(modelWeight);
+          print(
+              "|Database|getFirstMeetingFlag\t isFirstMeetingModel is null. Returning true");
 
           return true;
         } else {
           print(
-              "|Database|\t isFirstMeetingModel is not null. returning {${model.isFirstMeetingFlag}} from Hive Flag Model");
+              "|Database|getFirstMeetingFlag\t  isFirstMeetingModel is not null. returning {${model.isFirstMeetingFlag}} from Hive Flag Model");
           return model.isFirstMeetingFlag;
         }
       } else {
@@ -42,6 +40,16 @@ class Database {
         box.add(model);
         // model = box.getAt(0);
         // print("${model.isFirstMeetingFlag.toString()}");
+
+        WeightModel modelWeight = WeightModel();
+        // modelWeight.addWeight(0);
+        final boxWeight = await openBox("Weight");
+        boxWeight.add(modelWeight);
+
+        final boxWaiste = await openBox("Waiste");
+        WaisteModel waisteModel = WaisteModel();
+        // waisteModel.addWaiste(0);
+        boxWaiste.add(waisteModel);
 
         return true;
       }
@@ -56,6 +64,59 @@ class Database {
 //endregion
 
   // region >> Weight
+  Future<List<double>> getWeights() async {
+    final box = await openBox("Weight");
+    try {
+      List<double> list = [];
+      WeightModel model = box.getAt(0);
+      model.weightMap.forEach((key, value) {
+        list.add(value);
+        print("|Database|getWeights\t add weight to list: $value");
+      });
+      print(
+          "|Database|getWeights\t transporting weight list to WeightProv: [$list]");
+
+      return list;
+    } catch (e) {
+      print("|Database|getWeights\t error in getting weights, error : $e");
+      return [];
+    }
+  }
+
+  Future<List<DateTime>> getTimeWeights() async {
+    final box = await openBox("Weight");
+    try {
+      List<DateTime> list = [];
+      WeightModel model = box.getAt(0);
+      model.weightMap.forEach((key, value) {
+        list.add(key);
+        print("|Database|getWeights\t add time weight to list: $key");
+      });
+      print(
+          "|Database|getWeights\t transporting time weight list to WeightProv: [$list]");
+
+      return list;
+    } catch (e) {
+      print("|Database|getWeights\t error in getting weights, error : $e");
+      return [];
+    }
+  }
+
+  Future<double> getWantedWeight() async {
+    final box = await openBox("Weight");
+    try{
+      double r = 0;
+      WeightModel model = box.getAt(0);
+      r = model.wantedWeight;
+      return r;
+    }
+    catch(e){
+      print(
+          "|Database|getWantedWeight\t error in getting WantedWeight to Hive box, text of error : $e");
+      return 0;
+    }
+  }
+
   Future<void> saveWantedWeight(double value) async {
     final box = await openBox("Weight");
     try {
@@ -96,71 +157,37 @@ class Database {
       if (model == null) {
         print("|Database|addWeight\t model = null");
       } else {
-        print("adding weight....");
+        print("|Database|addWeight\t adding weight....");
+
+        model.addWeight(value);
+        model.save();
+        print(
+            "|Database|addWeight\t list of weights after adding value: {${model.weightMap.values}}");
       }
     } catch (e) {
       print("|Database|addWeight\t error when adding Weight: $e");
     }
   }
 
-  Future<double> getCurrentWeight() async {
-    final box = await openBox("Weight");
-    try {
-      WeightModel model = box.getAt(0);
-      if (model == null) {
-        print("|Database|getCurrentWeight\t model = null");
-      } else {
-        List<double> list = [];
-        for (var item in model.weightMap.entries) {
-          list.add(item.value);
-        }
-        print(
-            "|Database|getCurrentWeight\t current Weight = ${list.last.toString()}");
-        return list.last;
-      }
-    } catch (e) {
-      print("|Database|getCurrentWeight\t error when adding Weight: $e");
-      return 0;
-    }
-    return -2;
-  }
 //endregion
 
-//region Waiste
+  // region  >> Waiste
   Future<void> addWaiste(double value) async {
     final box = await openBox("Waiste");
     try {
-      WeightModel model = box.getAt(0);
+      WaisteModel model = box.getAt(0);
       if (model == null) {
         print("|Database|addWaiste\t model = null");
       } else {
-        print("adding waiste....");
+        model.addWaiste(value);
+        model.save();
+        print(
+            "|Database|addWaiste\t list of waistes after adding value: {${model.waisteMap.values}}");
       }
     } catch (e) {
       print("|Database|addWaiste\t error when adding Waiste: $e");
     }
   }
 
-  Future<double> getCurrentWaiste() async {
-    final box = await openBox("Waiste");
-    try {
-      WaisteModel model = box.getAt(0);
-      if (model == null) {
-        print("|Database|getCurrentWaiste\t model = null");
-      } else {
-        List<double> list = [];
-        for (var item in model.waisteMap.entries) {
-          list.add(item.value);
-        }
-        print(
-            "|Database|getCurrentWaiste\t current Weight = ${list.last.toString()}");
-        return list.last;
-      }
-    } catch (e) {
-      print("|Database|getCurrentWaiste\t error when adding Waiste: $e");
-      return 0;
-    }
-    return -2;
-  }
 //endregion
 }
