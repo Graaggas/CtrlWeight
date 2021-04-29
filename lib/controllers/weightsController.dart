@@ -16,7 +16,7 @@ class WeightsController extends GetxController {
 
   Future<void> addWeight(double value) async {
     await database.addWeight(value);
-    if(weightsList.isEmpty){
+    if (weightsList.isEmpty) {
       startWeight.value = value;
     }
     weightsList.add(value);
@@ -34,4 +34,33 @@ class WeightsController extends GetxController {
   // double getWantedWeight() {
   //   return wantedWeight.value;
   // }
+
+  @override
+  void onInit() async {
+    print("===> try to init weightController");
+    wantedWeight.value = await database.getWantedWeight();
+    print("|WeightController|onInit: wantedWeight = ${wantedWeight.value}");
+
+    weightsList.value = await database.getWeights();
+    print("|WeightController|onInit: weightsList = ${weightsList.value}");
+
+    timeList.value = await database.getTimeWeights();
+    print("|WeightController|onInit: timeList = ${timeList.value}");
+
+    var r = await database.getWeights();
+    if (r.isNotEmpty) {
+      startWeight.value = r.first;
+      print("|WeightController|onInit: startWeight = ${startWeight.value}");
+      currentWeight.value = r.last;
+      print("|WeightController|onInit: currentWeight = ${currentWeight.value}");
+    }
+
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    print("===> Widget with weightController was rendered");
+    super.onReady();
+  }
 }

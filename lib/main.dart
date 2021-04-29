@@ -1,4 +1,5 @@
 import 'package:ctrl_weight/controllers/firstMeetingFlagController.dart';
+import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/hive_models/models.dart';
 import 'package:ctrl_weight/lading_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(FirstMeetingFlagController(), permanent: true);
     Get.put(WeightsController(), permanent: true);
+    Get.put(WaisteController(), permanent: true);
 
 
 
