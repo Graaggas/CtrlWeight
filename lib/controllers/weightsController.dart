@@ -10,10 +10,18 @@ class WeightsController extends GetxController {
 
   var wantedWeight = 0.0.obs;
 
+  var currentWeight = 0.0.obs;
+
+  var startWeight = 0.0.obs;
+
   Future<void> addWeight(double value) async {
     await database.addWeight(value);
+    if(weightsList.isEmpty){
+      startWeight.value = value;
+    }
     weightsList.add(value);
     timeList.add(DateTime.now());
+    currentWeight.value = value;
     update();
   }
 
@@ -23,7 +31,7 @@ class WeightsController extends GetxController {
     print("|WeightController|saveWantedWeight\t wantedWeight = $wantedWeight");
   }
 
-  double getWantedWeight() {
-    return wantedWeight.value;
-  }
+  // double getWantedWeight() {
+  //   return wantedWeight.value;
+  // }
 }
