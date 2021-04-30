@@ -1,4 +1,5 @@
 import 'package:ctrl_weight/controllers/firstMeetingFlagController.dart';
+import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/misc/customAppBar.dart';
@@ -31,6 +32,7 @@ class _StartValuesScreenState extends State<StartValuesScreen> {
 
     FirstMeetingFlagController flagController = Get.find();
     WeightsController weightsController = Get.find();
+    WaisteController waisteController = Get.find();
 
     return SafeArea(
       child: Scaffold(
@@ -133,37 +135,39 @@ class _StartValuesScreenState extends State<StartValuesScreen> {
                 ),
                 ConstrainedBox(
                   constraints: BoxConstraints.tightFor(width: 300, height: 50),
-                  child:  ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            elevation: 5, primary: colorButtons),
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            flagController.changeFlagInHive();
-                            weightsController.saveWantedWeight(double.parse(textWeightController.text));
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        elevation: 5, primary: colorButtons),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        flagController.changeFlagInHive();
+                        weightsController.saveWantedWeight(
+                            double.parse(textWeightController.text));
+                        waisteController.calculateWantedWaiste(
+                            double.parse(textHeightController.text));
 
-                            Get.offAllNamed("/dashboard_screen");
+                        Get.offAllNamed("/dashboard_screen");
 
-                            //* save data via provider and go to dashboard
-                            // final providerWeight = watch(weightNotifierProvider);
-                            // final flagProvider = watch(getFlagProvider);
-                            // providerWeight.saveWantedWeight(
-                            //     double.parse(textWeightController.text));
-                            // flagProvider.changeFlag();
+                        //* save data via provider and go to dashboard
+                        // final providerWeight = watch(weightNotifierProvider);
+                        // final flagProvider = watch(getFlagProvider);
+                        // providerWeight.saveWantedWeight(
+                        //     double.parse(textWeightController.text));
+                        // flagProvider.changeFlag();
 
-                            // Navigator.pushReplacementNamed(
-                            //     context, "/dashboard_screen");
-                          } else {
-                            //* do nothing
-                          }
-                        },
-                        child: Text(
-                          "Добавить",
-                          style: GoogleFonts.play(
-                            color: colorTextIcons,
-                            fontSize: 18,
-                          ),
-                        ),
-
+                        // Navigator.pushReplacementNamed(
+                        //     context, "/dashboard_screen");
+                      } else {
+                        //* do nothing
+                      }
+                    },
+                    child: Text(
+                      "Добавить",
+                      style: GoogleFonts.play(
+                        color: colorTextIcons,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ),
               ],

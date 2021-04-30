@@ -18,10 +18,12 @@ class WaisteController extends GetxController {
 
   Future<void> addWaiste(double value) async {
     await database.addWaiste(value);
-    if(waisteList.isEmpty){
+    if (waisteList.isEmpty) {
       startWaiste.value = value;
-      wantedWaiste.value = 0.49*height.value;
-      calculateWantedWaiste(height.value);
+      // wantedWaiste.value = 0.49 * height.value;
+      // print('HEIGHT: ${height.value}');
+      // print("|WeightController|addWaiste\t wantedWaiste = $wantedWaiste");
+      // calculateWantedWaiste(height.value);
     }
     waisteList.add(value);
     timeList.add(DateTime.now());
@@ -32,8 +34,10 @@ class WaisteController extends GetxController {
 
   Future<void> calculateWantedWaiste(double value) async {
     await database.calculateWantedWaiste(value);
-    wantedWaiste.value = 0.49*value;
-    print("|WeightController|saveWantedWeight\t wantedWeight = $wantedWaiste");
+    height.value = value;
+    wantedWaiste.value = 0.49 * value;
+    print(
+        "|WeightController|calculatingWantedWaiste\t wantedWaiste = $wantedWaiste");
   }
 
   @override
@@ -43,10 +47,10 @@ class WaisteController extends GetxController {
     print("|WeightController|onInit: wantedWaiste = ${wantedWaiste.value}");
 
     waisteList.value = await database.getWaistes();
-    print("|WeightController|onInit: waistesList = ${waisteList.value}");
+    print("|WeightController|onInit: waistesList = ;waisteList");
 
     timeList.value = await database.getTimeWaistes();
-    print("|WeightController|onInit: timeList = ${timeList.value}");
+    print("|WeightController|onInit: timeList = $timeList");
 
     var r = await database.getWaistes();
     if (r.isNotEmpty) {
@@ -62,8 +66,11 @@ class WaisteController extends GetxController {
   @override
   void onReady() {
     print("===> Widget with waisteController was rendered");
+
+    // print('HEIGHT: ${height.value}');
+    // wantedWaiste.value = 0.49 * height.value;
+    // print('WANTEDWAISTE: ${wantedWaiste.value}');
     super.onReady();
   }
-
 }
 //TODO не работает конечный замер окружности

@@ -42,10 +42,10 @@ class WeightsController extends GetxController {
     print("|WeightController|onInit: wantedWeight = ${wantedWeight.value}");
 
     weightsList.value = await database.getWeights();
-    print("|WeightController|onInit: weightsList = ${weightsList.value}");
+    print("|WeightController|onInit: weightsList = $weightsList");
 
     timeList.value = await database.getTimeWeights();
-    print("|WeightController|onInit: timeList = ${timeList.value}");
+    print("|WeightController|onInit: timeList = $timeList");
 
     var r = await database.getWeights();
     if (r.isNotEmpty) {
