@@ -5,6 +5,7 @@ import 'package:ctrl_weight/hive_models/models.dart';
 import 'package:ctrl_weight/lading_page.dart';
 import 'package:ctrl_weight/screens/dashboard/dashboard.dart';
 import 'package:ctrl_weight/screens/intro_screens/intro_screen.dart';
+import 'package:ctrl_weight/screens/weights/weights-page.dart';
 import 'package:ctrl_weight/start_values_screen/start_values_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,14 +32,16 @@ class MyApp extends StatelessWidget {
     Get.put(WeightsController(), permanent: true);
     Get.put(WaisteController(), permanent: true);
 
-
-
     return GetMaterialApp(
       initialRoute: "/",
       getPages: [
         GetPage(
           name: "/",
           page: () => LandingPage(),
+        ),
+        GetPage(
+          name: "/weights_screen",
+          page: () => WeightsPage(),
         ),
         GetPage(
           name: "/intro_screen",

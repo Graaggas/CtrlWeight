@@ -25,7 +25,6 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String header;
   final RightAppbarButton rightAppbarButton;
   final LeftAppbarButton leftAppbarButton;
-  final BuildContext context;
 
   const MyCustomAppBar({
     Key key,
@@ -33,7 +32,6 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.header,
     this.rightAppbarButton,
     this.leftAppbarButton,
-    this.context,
   }) : super(key: key);
 
   @override
@@ -91,6 +89,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: colorTextIcons,
                       ),
                       onPressed: () {
+                        print("try to open drawer");
                         Scaffold.of(context).openDrawer();
                       },
                     ),
