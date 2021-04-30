@@ -10,6 +10,12 @@ enum ChoosingTypeOfValue {
   waiste,
 }
 
+enum TypeOfAppBar {
+  weight,
+  waiste,
+  all,
+}
+
 enum RightAppbarButton {
   plus,
   empty,
@@ -25,6 +31,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String header;
   final RightAppbarButton rightAppbarButton;
   final LeftAppbarButton leftAppbarButton;
+  final TypeOfAppBar typeOfAppBar;
 
   const MyCustomAppBar({
     Key key,
@@ -32,6 +39,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.header,
     this.rightAppbarButton,
     this.leftAppbarButton,
+    this.typeOfAppBar,
   }) : super(key: key);
 
   @override
@@ -136,32 +144,44 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: colorTextIcons,
                       ),
                       onPressed: () async {
-                        var r = await showModalActionSheet(
-                          context: context,
-                          actions: [
-                            SheetAction(
-                              icon: Boxicons.bx_tachometer,
-                              label: "Добавить результаты взвешивания",
-                              key: ChoosingTypeOfValue.weight,
-                            ),
-                            SheetAction(
-                              key: ChoosingTypeOfValue.waiste,
-                              label:
-                                  "Добавить результаты измерения объема талии",
-                              icon: Boxicons.bx_ruler,
-                            ),
-                          ],
-                        );
-                        switch (r) {
-                          case ChoosingTypeOfValue.waiste:
-                            print(
-                                "|CustomAppBar| adding new waiste choosed...");
+                        switch (typeOfAppBar) {
+                          case TypeOfAppBar.all:
+                            var r = await showModalActionSheet(
+                              context: context,
+                              actions: [
+                                SheetAction(
+                                  icon: Boxicons.bx_tachometer,
+                                  label: "Добавить результаты взвешивания",
+                                  key: ChoosingTypeOfValue.weight,
+                                ),
+                                SheetAction(
+                                  key: ChoosingTypeOfValue.waiste,
+                                  label:
+                                      "Добавить результаты измерения объема талии",
+                                  icon: Boxicons.bx_ruler,
+                                ),
+                              ],
+                            );
+                            switch (r) {
+                              case ChoosingTypeOfValue.waiste:
+                                print(
+                                    "|CustomAppBar| adding new waiste choosed...");
+                                AddValuePage.show(
+                                    context, ChoosingTypeOfValue.waiste);
+                                break;
+                              case ChoosingTypeOfValue.weight:
+                                print(
+                                    "|CustomAppBar| adding new weight choosed...");
+                                AddValuePage.show(
+                                    context, ChoosingTypeOfValue.weight);
+                                break;
+                            }
+                            break;
+                          case TypeOfAppBar.waiste:
                             AddValuePage.show(
                                 context, ChoosingTypeOfValue.waiste);
                             break;
-                          case ChoosingTypeOfValue.weight:
-                            print(
-                                "|CustomAppBar| adding new weight choosed...");
+                          case TypeOfAppBar.weight:
                             AddValuePage.show(
                                 context, ChoosingTypeOfValue.weight);
                             break;

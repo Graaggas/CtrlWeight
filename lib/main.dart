@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: "/weights_screen",
+          transition: Transition.zoom,
           page: () => WeightsPage(),
         ),
         GetPage(
