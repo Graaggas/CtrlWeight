@@ -25,6 +25,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String header;
   final RightAppbarButton rightAppbarButton;
   final LeftAppbarButton leftAppbarButton;
+  final BuildContext context;
 
   const MyCustomAppBar({
     Key key,
@@ -32,6 +33,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.header,
     this.rightAppbarButton,
     this.leftAppbarButton,
+    this.context,
   }) : super(key: key);
 
   @override
@@ -89,7 +91,7 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: colorTextIcons,
                       ),
                       onPressed: () {
-                        //Scaffold.of(context).openDrawer();
+                        Scaffold.of(context).openDrawer();
                       },
                     ),
             ),
@@ -117,7 +119,9 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: rightAppbarButton == RightAppbarButton.empty ? colorAppBarGradientEnd : colorAppBarButtons,
+                  color: rightAppbarButton == RightAppbarButton.empty
+                      ? colorAppBarGradientEnd
+                      : colorAppBarButtons,
                   borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: rightAppbarButton == RightAppbarButton.empty
                   ? IconButton(
@@ -153,12 +157,14 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           case ChoosingTypeOfValue.waiste:
                             print(
                                 "|CustomAppBar| adding new waiste choosed...");
-                            AddValuePage.show(context, ChoosingTypeOfValue.waiste);
+                            AddValuePage.show(
+                                context, ChoosingTypeOfValue.waiste);
                             break;
                           case ChoosingTypeOfValue.weight:
                             print(
                                 "|CustomAppBar| adding new weight choosed...");
-                            AddValuePage.show(context, ChoosingTypeOfValue.weight);
+                            AddValuePage.show(
+                                context, ChoosingTypeOfValue.weight);
                             break;
                         }
                       },
