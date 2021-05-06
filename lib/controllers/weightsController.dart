@@ -37,6 +37,12 @@ class WeightsController extends GetxController {
     print(
         "|WeightController|deleteWeight\t after deleting currentWeight = ${currentWeight.value}");
 
+    if (index == 0) {
+      if (weightsList.isNotEmpty) {
+        startWeight.value = weightsList.first;
+      } else
+        startWeight.value = 0.0;
+    }
     update();
     getWeightsDiff();
   }

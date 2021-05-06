@@ -73,4 +73,3 @@ class WaisteController extends GetxController {
     super.onReady();
   }
 }
-//TODO не работает конечный замер окружности
