@@ -14,6 +14,33 @@ class WeightsController extends GetxController {
 
   var startWeight = 0.0.obs;
 
+  var diffWeight = 0.0.obs;
+
+  void getWeightsDiff() {
+    if (weightsList.length == 1) {
+      diffWeight.value = 0.0;
+    } else {
+      diffWeight.value =
+          currentWeight.value - weightsList[weightsList.length - 2];
+    }
+  }
+
+  Future<void> deleteWeight(int index) async {
+    await database.deleteWeight(index);
+    weightsList.removeAt(index);
+    if (weightsList.isNotEmpty) {
+      currentWeight.value = weightsList.last;
+    } else {
+      currentWeight.value = 0;
+    }
+
+    print(
+        "|WeightController|deleteWeight\t after deleting currentWeight = ${currentWeight.value}");
+
+    update();
+    getWeightsDiff();
+  }
+
   Future<void> addWeight(double value) async {
     await database.addWeight(value);
     if (weightsList.isEmpty) {
@@ -23,12 +50,14 @@ class WeightsController extends GetxController {
     timeList.add(DateTime.now());
     currentWeight.value = value;
     update();
+    getWeightsDiff();
   }
 
   Future<void> saveWantedWeight(double value) async {
     await database.saveWantedWeight(value);
     wantedWeight.value = value;
     print("|WeightController|saveWantedWeight\t wantedWeight = $wantedWeight");
+    update();
   }
 
   // double getWantedWeight() {

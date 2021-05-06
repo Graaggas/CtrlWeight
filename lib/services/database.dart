@@ -64,6 +64,24 @@ class Database {
 //endregion
 
   // region >> Weight
+  Future<void> deleteWeight(int index) async {
+    final box = await openBox("Weight");
+    WeightModel weightModel = box.getAt(0);
+    int i = 0;
+    DateTime keyToDelete;
+    weightModel.weightMap.forEach((key, value) {
+      if (i == index) {
+        keyToDelete = key;
+      } else {
+        i++;
+      }
+    });
+    if (keyToDelete != null) {
+      weightModel.weightMap.remove(keyToDelete);
+      weightModel.save();
+    }
+  }
+
   Future<List<double>> getWeights() async {
     final box = await openBox("Weight");
     try {
@@ -104,13 +122,12 @@ class Database {
 
   Future<double> getWantedWeight() async {
     final box = await openBox("Weight");
-    try{
+    try {
       double r = 0;
       WeightModel model = box.getAt(0);
       r = model.wantedWeight;
       return r;
-    }
-    catch(e){
+    } catch (e) {
       print(
           "|Database|getWantedWeight\t error in getting WantedWeight to Hive box, text of error : $e");
       return 0;
@@ -213,19 +230,17 @@ class Database {
 
   Future<double> getWantedWaiste() async {
     final box = await openBox("Waiste");
-    try{
+    try {
       double r = 0;
       WaisteModel model = box.getAt(0);
       r = model.wantedWaiste;
       return r;
-    }
-    catch(e){
+    } catch (e) {
       print(
           "|Database|getWantedWaiste\t error in getting WantedWaiste to Hive box, text of error : $e");
       return 0;
     }
   }
-
 
   Future<void> addWaiste(double value) async {
     final box = await openBox("Waiste");
@@ -243,21 +258,20 @@ class Database {
       print("|Database|addWaiste\t error when adding Waiste: $e");
     }
   }
+
   Future<void> calculateWantedWaiste(double value) async {
     final box = await openBox("Waiste");
-    try{
+    try {
       WaisteModel model = box.getAt(0);
       if (model == null) {
         print("|Database|calculateWantedWaiste\t model = null");
       } else {
-        model.addWantedWaiste(0.49*value);
+        model.addWantedWaiste(0.49 * value);
         model.save();
         print(
             "|Database|addWaiste\t list of waistes after adding value: {${model.waisteMap.values}}");
       }
-
-    }
-    catch(e){
+    } catch (e) {
       print("|Database|calculateWantedWaiste\t error : $e");
     }
   }
