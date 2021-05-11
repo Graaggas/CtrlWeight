@@ -2,13 +2,14 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class WeightCard extends StatelessWidget {
-  const WeightCard(
-      {Key key, this.dateTime, this.index, this.weight, this.prevWeight})
+// ignore: must_be_immutable
+class WeightCard extends StatefulWidget {
+  WeightCard({Key key, this.dateTime, this.index, this.weight, this.prevWeight})
       : super(key: key);
 
   final DateTime dateTime;
@@ -17,8 +18,66 @@ class WeightCard extends StatelessWidget {
   final double prevWeight;
 
   @override
+  _WeightCardState createState() => _WeightCardState();
+}
+
+class _WeightCardState extends State<WeightCard> {
+  TextEditingController _textFieldController = TextEditingController();
+
+  _displayDialogCorrection(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Корректировка значения'),
+            content: TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+              ],
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: "Введите значение"),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Отмена",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop("SAVING");
+                },
+                child: Text(
+                  "Сохранить",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  @override
+  void dispose() {
+    _textFieldController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var diff = weight - prevWeight;
+    var diff = widget.weight - widget.prevWeight;
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
       child: Container(
@@ -35,7 +94,7 @@ class WeightCard extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Text(
-                DateFormat("dd.MM.yyyy").format(dateTime).toString(),
+                DateFormat("dd.MM.yyyy").format(widget.dateTime).toString(),
                 style: TextStyle(fontSize: 12, color: colorTextInWhitePanels),
               ),
               Expanded(
@@ -44,11 +103,11 @@ class WeightCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      weight.toString(),
+                      widget.weight.toString(),
                       style: TextStyle(
                           fontSize: 24, color: colorTextInWhitePanels),
                     ),
-                    prevWeight == -1
+                    widget.prevWeight == -1
                         ? Container()
                         : diff >= 0
                             ? Text(
@@ -76,7 +135,7 @@ class WeightCard extends StatelessWidget {
                           context: context,
                           title: "Предупреждение",
                           message:
-                              "Действительно удалить запись с весом ${weight.toString()} кг?",
+                              "Действительно удалить запись с весом ${widget.weight.toString()} кг?",
                           okLabel: "Удалить",
                           alertStyle: AdaptiveStyle.material,
                           cancelLabel: "Отмена",
@@ -84,16 +143,29 @@ class WeightCard extends StatelessWidget {
                         );
                         if (r == OkCancelResult.ok) {
                           WeightsController weightsController = Get.find();
-                          weightsController.deleteWeight(index);
+                          weightsController.deleteWeight(widget.index);
                         }
                       },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Boxicons.bxs_edit,
-                      color: colorButtons,
+                    child: IconButton(
+                      onPressed: () async {
+                        _textFieldController.text = widget.weight.toString();
+                        var r = await _displayDialogCorrection(context);
+                        if (r == "SAVING") {
+                          WeightsController weightsController = Get.find();
+                          weightsController.updateWeight(
+                              widget.index,
+                              double.parse(_textFieldController.text),
+                              widget.dateTime);
+                        }
+                      },
+                      icon: Icon(
+                        Boxicons.bxs_edit,
+                        color: colorButtons,
+                      ),
                     ),
                   ),
                 ],

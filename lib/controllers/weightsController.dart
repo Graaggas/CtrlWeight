@@ -19,7 +19,7 @@ class WeightsController extends GetxController {
   void getWeightsDiff() {
     if (weightsList.length == 1) {
       diffWeight.value = 0.0;
-    } else {
+    } else if (weightsList.isNotEmpty) {
       diffWeight.value =
           currentWeight.value - weightsList[weightsList.length - 2];
     }
@@ -66,6 +66,14 @@ class WeightsController extends GetxController {
     update();
   }
 
+  Future<void> updateWeight(int index, double value, DateTime date) async {
+    await database.updateWeight(value, date);
+    currentWeight.value = value;
+    weightsList[index] = value;
+    update();
+    getWeightsDiff();
+  }
+
   // double getWantedWeight() {
   //   return wantedWeight.value;
   // }
@@ -91,6 +99,8 @@ class WeightsController extends GetxController {
     }
 
     super.onInit();
+    update();
+    getWeightsDiff();
   }
 
   @override

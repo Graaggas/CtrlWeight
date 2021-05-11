@@ -64,6 +64,15 @@ class Database {
 //endregion
 
   // region >> Weight
+
+  Future<void> updateWeight(double value, DateTime keyDate) async {
+    final box = await openBox("Weight");
+    WeightModel weightModel = box.getAt(0);
+    print("Getting key = $keyDate, new value = $value");
+    weightModel.weightMap[keyDate] = value;
+    weightModel.save();
+  }
+
   Future<void> deleteWeight(int index) async {
     final box = await openBox("Weight");
     WeightModel weightModel = box.getAt(0);
