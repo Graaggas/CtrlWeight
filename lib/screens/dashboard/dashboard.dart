@@ -94,11 +94,16 @@ class DashboardScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        WidgetAverage(
-                          sizeScreen: sizeScreen,
-                          typeOfAverage: "НЕДЕЛЯ",
+                        Obx(
+                          () => WidgetAverage(
+                            weightAverage:
+                                weightsController.averageWeightSevenDays.value,
+                            sizeScreen: sizeScreen,
+                            typeOfAverage: "НЕДЕЛЯ",
+                          ),
                         ),
                         WidgetAverage(
+                          weightAverage: 0,
                           sizeScreen: sizeScreen,
                           typeOfAverage: "14 ДНЕЙ",
                         ),
@@ -113,10 +118,12 @@ class DashboardScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         WidgetAverage(
+                          weightAverage: 0,
                           sizeScreen: sizeScreen,
                           typeOfAverage: "МЕСЯЦ",
                         ),
                         WidgetAverage(
+                          weightAverage: 0,
                           sizeScreen: sizeScreen,
                           typeOfAverage: "ВСЕГО",
                         ),

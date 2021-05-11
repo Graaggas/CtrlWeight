@@ -7,13 +7,26 @@ class WidgetAverage extends StatelessWidget {
     Key key,
     @required this.sizeScreen,
     this.typeOfAverage,
+    this.weightAverage,
   }) : super(key: key);
 
   final Size sizeScreen;
   final String typeOfAverage;
+  final double weightAverage;
 
   @override
   Widget build(BuildContext context) {
+    String averWeight = "...";
+    print("==> ${weightAverage.toStringAsFixed(2)}");
+    if (weightAverage == null) {
+      averWeight = "";
+    } else {
+      if (weightAverage > 0)
+        averWeight = "+" + weightAverage.toStringAsFixed(2);
+      else
+        averWeight = weightAverage.toStringAsFixed(2);
+    }
+
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -58,7 +71,7 @@ class WidgetAverage extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "+13 кг",
+                  "$averWeight кг",
                   style: GoogleFonts.play(
                     color: colorTextInWhitePanels,
                     fontSize: 22,

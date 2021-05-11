@@ -1,5 +1,6 @@
 import 'package:ctrl_weight/services/database.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 class WeightsController extends GetxController {
   final database = Database();
@@ -16,6 +17,52 @@ class WeightsController extends GetxController {
 
   var diffWeight = 0.0.obs;
 
+  var averageWeightAllDays = 0.0.obs;
+
+  var averageWeightSevenDays = 0.0.obs;
+
+  var averageWeightFourteenDays = 0.0.obs;
+
+  var averageWeightMonth = 0.0.obs;
+
+  Future<void> getSevenDaysAverage(
+      {RxList<DateTime> timeDateList,
+      RxList<double> valuesList,
+      RxDouble averageRx}) async {
+    double average = 0.0;
+    double diff = 0.0;
+
+    var cuDay = timeDateList[timeDateList.length - 1];
+
+    var currentDay = Jiffy(cuDay);
+
+    var now = Jiffy(DateTime.now());
+
+    var firstOfSevenDay = now.subtract(days: 7);
+
+    List<double> list = [];
+    for (int i = 0; i < timeDateList.length; i++) {
+      var r = Jiffy(timeDateList[i]);
+
+      if (r.isBetween(firstOfSevenDay, currentDay.add(days: 1))) {
+        list.add(valuesList[i]);
+      }
+    }
+
+    for (int i = 1; i < list.length; i++) {
+      diff = list[i] - list[i - 1];
+      // print("||weightController||getSevenDaysAverage||\n diff: $diff\n\n");
+      average = average + diff;
+      // print(
+      //     "||weightController||getSevenDaysAverage||\n average: $average\n\n");
+    }
+
+    averageRx.value = average;
+    // print(
+    //     "||weightController||getSevenDaysAverage||\n averageWeightSevenDays: ${averageWeightSevenDays.value}\n\n");
+    update();
+  }
+
   void getWeightsDiff() {
     if (weightsList.length == 1) {
       diffWeight.value = 0.0;
@@ -28,6 +75,7 @@ class WeightsController extends GetxController {
   Future<void> deleteWeight(int index) async {
     await database.deleteWeight(index);
     weightsList.removeAt(index);
+    timeList.removeAt(index);
     if (weightsList.isNotEmpty) {
       currentWeight.value = weightsList.last;
     } else {
@@ -45,6 +93,11 @@ class WeightsController extends GetxController {
     }
     update();
     getWeightsDiff();
+    getSevenDaysAverage(
+      valuesList: weightsList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
   }
 
   Future<void> addWeight(double value) async {
@@ -57,6 +110,11 @@ class WeightsController extends GetxController {
     currentWeight.value = value;
     update();
     getWeightsDiff();
+    getSevenDaysAverage(
+      valuesList: weightsList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
   }
 
   Future<void> saveWantedWeight(double value) async {
@@ -72,6 +130,11 @@ class WeightsController extends GetxController {
     weightsList[index] = value;
     update();
     getWeightsDiff();
+    getSevenDaysAverage(
+      valuesList: weightsList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
   }
 
   // double getWantedWeight() {
@@ -101,6 +164,11 @@ class WeightsController extends GetxController {
     super.onInit();
     update();
     getWeightsDiff();
+    getSevenDaysAverage(
+      valuesList: weightsList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
   }
 
   @override
