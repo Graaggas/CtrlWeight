@@ -102,10 +102,13 @@ class DashboardScreen extends StatelessWidget {
                             typeOfAverage: "НЕДЕЛЯ",
                           ),
                         ),
-                        WidgetAverage(
-                          weightAverage: 0,
-                          sizeScreen: sizeScreen,
-                          typeOfAverage: "14 ДНЕЙ",
+                        Obx(
+                          () => WidgetAverage(
+                            weightAverage: weightsController
+                                .averageWeightFourteenDays.value,
+                            sizeScreen: sizeScreen,
+                            typeOfAverage: "14 ДНЕЙ",
+                          ),
                         ),
                       ],
                     ),
@@ -117,15 +120,21 @@ class DashboardScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        WidgetAverage(
-                          weightAverage: 0,
-                          sizeScreen: sizeScreen,
-                          typeOfAverage: "МЕСЯЦ",
+                        Obx(
+                          () => WidgetAverage(
+                            weightAverage:
+                                weightsController.averageWeightMonth.value,
+                            sizeScreen: sizeScreen,
+                            typeOfAverage: "МЕСЯЦ",
+                          ),
                         ),
-                        WidgetAverage(
-                          weightAverage: 0,
-                          sizeScreen: sizeScreen,
-                          typeOfAverage: "ВСЕГО",
+                        Obx(
+                          () => WidgetAverage(
+                            weightAverage:
+                                weightsController.averageWeightAllDays.value,
+                            sizeScreen: sizeScreen,
+                            typeOfAverage: "ВСЕГО",
+                          ),
                         ),
                       ],
                     ),

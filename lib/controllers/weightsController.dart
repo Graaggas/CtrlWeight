@@ -25,6 +25,44 @@ class WeightsController extends GetxController {
 
   var averageWeightMonth = 0.0.obs;
 
+  Future<void> getMonthsAverage(
+      {RxList<DateTime> timeDatesList,
+      RxList<double> valuesList,
+      RxDouble averageRX}) async {
+    double averageMonth = 0.0;
+    double diff = 0.0;
+
+    var cuDay = timeDatesList[timeDatesList.length - 1];
+    var currentDay = Jiffy(cuDay);
+    // logger.info("current day", currentDay.format("dd MMMM yyyy, hh:mm:ss"),
+    //     StackTrace.current);
+    var now = Jiffy(DateTime.now());
+    var firstOfMonth = now.subtract(days: 31);
+    List<double> list = [];
+    for (int i = 0; i < timeDatesList.length; i++) {
+      var r = Jiffy(timeDatesList[i]);
+
+      // print(r.format("dd MMMM yyyy, hh:mm:ss"));
+      if (r.isBetween(firstOfMonth, currentDay.add(days: 1))) {
+        // print("==> ${r.format("dd MMMM yyyy, hh:mm:ss")}");
+        list.add(valuesList[i]);
+      }
+
+      // print("==> 14 => ${averageWeightFourteenDays.value}");
+    }
+
+    // print("aver start = $averageMonth");
+    for (int i = 1; i < list.length; i++) {
+      diff = list[i] - list[i - 1];
+      // print("${list[i]}-${list[i - 1]}");
+      averageMonth = averageMonth + diff;
+      // print("aver = $averageMonth");
+    }
+    //
+    // logger.info("14 days diff", averageMonth, StackTrace.current);
+    averageRX.value = averageMonth;
+  }
+
   Future<void> getSevenDaysAverage(
       {RxList<DateTime> timeDateList,
       RxList<double> valuesList,
@@ -63,6 +101,58 @@ class WeightsController extends GetxController {
     update();
   }
 
+  Future<void> getFourteenDaysAverage(
+      {RxList<DateTime> listOfDates,
+      RxList<double> valuesList,
+      RxDouble averageRx}) async {
+    double average7days = 0.0;
+    double diff = 0.0;
+
+    var cuDay = listOfDates[listOfDates.length - 1];
+    var currentDay = Jiffy(cuDay);
+
+    var now = Jiffy(DateTime.now());
+    var firstOfFourteenDay = now.subtract(days: 14);
+    List<double> list = [];
+    for (int i = 0; i < listOfDates.length; i++) {
+      var r = Jiffy(listOfDates[i]);
+
+      if (r.isBetween(firstOfFourteenDay, currentDay.add(days: 1))) {
+        // print("==> ${r.format("dd MMMM yyyy, hh:mm:ss")}");
+        list.add(valuesList[i]);
+      }
+    }
+
+    for (int i = 1; i < list.length; i++) {
+      diff = list[i] - list[i - 1];
+      // print("${list[i]}-${list[i - 1]}");
+      average7days = average7days + diff;
+      // print("aver = $average7days");
+    }
+
+    averageRx.value = average7days;
+    update();
+  }
+
+  Future<void> getAllDaysAverage(
+      {RxList<DateTime> listOfDates,
+      RxList<double> valuesList,
+      RxDouble averageRx}) async {
+    double average = 0.0;
+    double diff = 0.0;
+
+    for (int i = 0; i < valuesList.length; i++) {
+      if (i == 0) {
+      } else {
+        diff = valuesList[i] - valuesList[i - 1];
+        average = average + diff;
+      }
+    }
+
+    averageRx.value = average;
+    update();
+  }
+
   void getWeightsDiff() {
     if (weightsList.length == 1) {
       diffWeight.value = 0.0;
@@ -82,8 +172,8 @@ class WeightsController extends GetxController {
       currentWeight.value = 0;
     }
 
-    print(
-        "|WeightController|deleteWeight\t after deleting currentWeight = ${currentWeight.value}");
+    // print(
+    //     "|WeightController|deleteWeight\t after deleting currentWeight = ${currentWeight.value}");
 
     if (index == 0) {
       if (weightsList.isNotEmpty) {
@@ -97,6 +187,21 @@ class WeightsController extends GetxController {
       valuesList: weightsList,
       timeDateList: timeList,
       averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: weightsList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: weightsList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: weightsList,
     );
   }
 
@@ -114,6 +219,21 @@ class WeightsController extends GetxController {
       valuesList: weightsList,
       timeDateList: timeList,
       averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: weightsList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: weightsList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: weightsList,
     );
   }
 
@@ -134,6 +254,21 @@ class WeightsController extends GetxController {
       valuesList: weightsList,
       timeDateList: timeList,
       averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: weightsList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: weightsList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: weightsList,
     );
   }
 
@@ -168,6 +303,21 @@ class WeightsController extends GetxController {
       valuesList: weightsList,
       timeDateList: timeList,
       averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: weightsList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: weightsList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: weightsList,
     );
   }
 
