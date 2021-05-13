@@ -3,6 +3,7 @@ import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/hive_models/models.dart';
 import 'package:ctrl_weight/lading_page.dart';
+import 'package:ctrl_weight/screens/charts/charts_page.dart';
 import 'package:ctrl_weight/screens/dashboard/dashboard.dart';
 import 'package:ctrl_weight/screens/intro_screens/intro_screen.dart';
 import 'package:ctrl_weight/screens/weights/weights-page.dart';
@@ -56,6 +57,11 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/dashboard_screen",
           page: () => DashboardScreen(),
+          transition: Transition.fade,
+        ),
+        GetPage(
+          name: "/charts_screen",
+          page: () => ChartsPage(),
           transition: Transition.fade,
         ),
       ],

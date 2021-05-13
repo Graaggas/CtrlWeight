@@ -1,9 +1,13 @@
+import 'package:ctrl_weight/misc/chart_data.dart';
 import 'package:ctrl_weight/services/database.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
 class WeightsController extends GetxController {
   final database = Database();
+
+  var weightsChartList = <WeightChart>[].obs;
 
   var weightsList = <double>[].obs;
 
@@ -203,6 +207,7 @@ class WeightsController extends GetxController {
       listOfDates: timeList,
       valuesList: weightsList,
     );
+    updateWeightChartList();
   }
 
   Future<void> addWeight(double value) async {
@@ -235,6 +240,7 @@ class WeightsController extends GetxController {
       listOfDates: timeList,
       valuesList: weightsList,
     );
+    updateWeightChartList();
   }
 
   Future<void> saveWantedWeight(double value) async {
@@ -270,6 +276,7 @@ class WeightsController extends GetxController {
       listOfDates: timeList,
       valuesList: weightsList,
     );
+    updateWeightChartList();
   }
 
   // double getWantedWeight() {
@@ -319,11 +326,28 @@ class WeightsController extends GetxController {
       listOfDates: timeList,
       valuesList: weightsList,
     );
+    updateWeightChartList();
   }
 
   @override
   void onReady() {
     print("===> Widget with weightController was rendered");
     super.onReady();
+  }
+
+  void updateWeightChartList() {
+    weightsChartList.clear();
+    for (int i = 0; i < weightsList.length; i++) {
+      weightsChartList.add(WeightChart(
+          dateTime: DateFormat("dd.MM.yyyy").format(timeList[i]).toString(),
+          weight: weightsList[i]));
+    }
+
+    print("___________________");
+    weightsChartList.forEach((element) {
+      print(element.dateTime + " // " + element.weight.toString());
+    });
+    print("___________________");
+    update();
   }
 }

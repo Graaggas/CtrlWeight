@@ -1,5 +1,6 @@
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -28,18 +29,18 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text(
-              "ПАНЕЛЬ ДАННЫХ",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            onTap: () {
-              Get.toNamed("/dashboard_screen");
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.home),
+          //   title: Text(
+          //     "ПАНЕЛЬ ДАННЫХ",
+          //     style: TextStyle(
+          //       fontSize: 16,
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     Get.toNamed("/dashboard_screen");
+          //   },
+          // ),
           ListTile(
             leading: Icon(Icons.list_alt),
             title: Text(
@@ -54,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.list_rounded),
+            leading: Icon(Icons.list_alt),
             title: Text(
               "ТАБЛИЦА ОБЪЕМОВ",
               style: TextStyle(
@@ -62,6 +63,20 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {},
+          ),
+
+          ListTile(
+            leading: Icon(Boxicons.bx_chart),
+            title: Text(
+              "ГРАФИКИ",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            onTap: () {
+              Navigator.pop(context2);
+              Get.toNamed("/charts_screen");
+            },
           ),
           ListTile(
             leading: Icon(Icons.account_circle_outlined),
