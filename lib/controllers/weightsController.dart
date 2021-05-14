@@ -337,10 +337,24 @@ class WeightsController extends GetxController {
 
   void updateWeightChartList() {
     weightsChartList.clear();
+
+    String date = '';
+
     for (int i = 0; i < weightsList.length; i++) {
-      weightsChartList.add(WeightChart(
-          dateTime: DateFormat("dd.MM.yyyy").format(timeList[i]).toString(),
-          weight: weightsList[i]));
+      // if (weightsList.length <= 3) {
+      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).toString();
+      // } else if (weightsList.length > 3 && weightsList.length <= 5) {
+      date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
+      // } else {
+      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
+      // }
+
+      if (weightsList.length >= 7) {
+        date =
+            date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
+      }
+
+      weightsChartList.add(WeightChart(dateTime: date, weight: weightsList[i]));
     }
 
     print("___________________");
