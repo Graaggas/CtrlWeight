@@ -1,8 +1,10 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/screens/add-values/add-value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum ChoosingTypeOfValue {
@@ -87,6 +89,10 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: colorTextIcons,
                       ),
                       onPressed: () {
+                        WeightsController weightsController = Get.find();
+                        weightsController.averAlldays.value = false;
+                        weightsController.averMonth.value = false;
+                        weightsController.averSevenDays.value = false;
                         Navigator.of(context).pop();
                         //Scaffold.of(context).openDrawer();
                       },

@@ -18,6 +18,45 @@ class ChartWeightWidget extends StatelessWidget {
   final List<BarChartGroupData> weightsList = [];
   double maxValueInWeights = 0.0;
 
+  void buildMonthChart(List<WeightChart> weightChart) {
+    var cuDay = weightChart.last.dateTime;
+    var currentDay = Jiffy(cuDay);
+
+    int index = 0;
+
+    var now = Jiffy(DateTime.now());
+    var firstOfMonth = now.subtract(days: 31);
+
+    for (int i = 0; i < weightChart.length; i++) {
+      var r = Jiffy(weightChart[i].dateTime);
+
+      if (r.isBetween(firstOfMonth, currentDay.add(days: 1))) {
+        weightsList.add(
+          BarChartGroupData(
+            x: index,
+            barRods: [
+              BarChartRodData(y: weightChart[i].weight, colors: [
+                colorBackgroindGradientStart,
+                colorBackgroindGradientStart
+              ])
+            ],
+            // showingTooltipIndicators: [0],
+          ),
+        );
+        index++;
+      }
+
+      // print("==> 14 => ${averageWeightFourteenDays.value}");
+    }
+    for (int i = 0; i < weightChart.length; i++) {
+      if (weightChart[i].weight >= maxValueInWeights) {
+        maxValueInWeights = weightChart[i].weight;
+      }
+    }
+
+    maxValueInWeights = maxValueInWeights + 5.0;
+  }
+
   void buildSevenDaysChart(List<WeightChart> weightChart) {
     var now = Jiffy(DateTime.now());
     var firstOfSevenDay = now.subtract(days: 7);
@@ -56,6 +95,7 @@ class ChartWeightWidget extends StatelessWidget {
 
   void buildAllDaysChart(List<WeightChart> weightChart) {
     for (int i = 0; i < weightChart.length; i++) {
+      print("--buildAllDaysChar: weight = ${weightChart[i].weight}");
       weightsList.add(
         BarChartGroupData(
           x: i,
@@ -88,6 +128,13 @@ class ChartWeightWidget extends StatelessWidget {
     if (weightsController.averSevenDays.value == true) {
       buildSevenDaysChart(weightChart);
     }
+    if (weightsController.averMonth.value == true) {
+      buildMonthChart(weightChart);
+    }
+
+    print("averalldays = ${weightsController.averAlldays.value}");
+    print("aver7days = ${weightsController.averSevenDays.value}");
+    print("averMonth = ${weightsController.averMonth.value}");
 
     return AspectRatio(
       aspectRatio: 1.7,

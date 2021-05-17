@@ -5,6 +5,7 @@ import 'package:ctrl_weight/misc/customAppBar.dart';
 import 'package:ctrl_weight/screens/charts/components/chart_comp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChartsPage extends StatefulWidget {
   const ChartsPage({Key key}) : super(key: key);
@@ -24,6 +25,7 @@ class _ChartsPageState extends State<ChartsPage> {
 
     WeightsController weightsController = Get.find();
     _pressedButtonAllDays = weightsController.averAlldays.value;
+    print("charts_page, _pressedButtonAllDays = $_pressedButtonAllDays");
 
     return SafeArea(
       child: Scaffold(
@@ -53,9 +55,15 @@ class _ChartsPageState extends State<ChartsPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text("ВЕС"),
-                SizedBox(
-                  height: 15,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    "ВЕС",
+                    style: GoogleFonts.play(
+                      color: colorTextInWhitePanels,
+                      fontSize: 24,
+                    ),
+                  ),
                 ),
                 Row(
                   children: [
@@ -80,12 +88,16 @@ class _ChartsPageState extends State<ChartsPage> {
                               if (_pressedButtonMonthDays) {
                                 _pressedButtonMonthDays =
                                     !_pressedButtonMonthDays;
+                                weightsController
+                                    .changeAverMonth(_pressedButtonMonthDays);
                               }
                               if (_pressedButtonAllDays) {
                                 _pressedButtonAllDays = !_pressedButtonAllDays;
                                 weightsController
                                     .changeAverAllDays(_pressedButtonAllDays);
                               }
+                              print(
+                                  "in setState: 7days = $_pressedButtonSevenDays");
                             });
                           },
                           child: Text("Неделя"),
@@ -106,6 +118,8 @@ class _ChartsPageState extends State<ChartsPage> {
                               if (!_pressedButtonMonthDays) {
                                 _pressedButtonMonthDays =
                                     !_pressedButtonMonthDays;
+                                weightsController
+                                    .changeAverMonth(_pressedButtonMonthDays);
                               }
 
                               if (_pressedButtonSevenDays) {
@@ -119,6 +133,8 @@ class _ChartsPageState extends State<ChartsPage> {
                                 weightsController
                                     .changeAverAllDays(_pressedButtonAllDays);
                               }
+                              print(
+                                  "in setState: month = $_pressedButtonMonthDays");
                             });
                           },
                           child: Text("Месяц"),
@@ -151,7 +167,11 @@ class _ChartsPageState extends State<ChartsPage> {
                               if (_pressedButtonMonthDays) {
                                 _pressedButtonMonthDays =
                                     !_pressedButtonMonthDays;
+                                weightsController
+                                    .changeAverMonth(_pressedButtonMonthDays);
                               }
+                              print(
+                                  "in setState: alldays = $_pressedButtonAllDays");
                             });
                           },
                           child: Text("Всего"),

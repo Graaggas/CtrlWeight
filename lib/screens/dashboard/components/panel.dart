@@ -33,7 +33,6 @@ class Panel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalKey _keyWeight = GlobalKey();
-    print("!!!! ${valueOfFill.toString()}");
 
     // final futureCurrentValue = watch(typeOfProvider);
 

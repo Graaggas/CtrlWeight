@@ -47,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.list_alt),
             title: Text(
-              "ТАБЛИЦА ВЕСОВ",
+              "ВЕСА",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -60,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.list_alt),
             title: Text(
-              "ТАБЛИЦА ОБЪЕМОВ",
+              "ЗАМЕРЫ ОБЪЕМОВ",
               style: TextStyle(
                 fontSize: 16,
               ),

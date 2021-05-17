@@ -9,6 +9,7 @@ class WeightsController extends GetxController {
 
   var averAlldays = false.obs;
   var averSevenDays = false.obs;
+  var averMonth = false.obs;
 
   var weightsChartList = <WeightChart>[].obs;
 
@@ -35,6 +36,12 @@ class WeightsController extends GetxController {
   void changeAverAllDays(bool value) {
     print("CHANGING AVERALLDAYS = $value");
     averAlldays.value = value;
+    update();
+  }
+
+  void changeAverMonth(bool value) {
+    print("CHANGING AverMonth = $value");
+    averMonth.value = value;
     update();
   }
 
