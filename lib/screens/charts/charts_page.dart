@@ -6,21 +6,24 @@ import 'package:ctrl_weight/screens/charts/components/chart_comp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChartsPage extends StatelessWidget {
+class ChartsPage extends StatefulWidget {
   const ChartsPage({Key key}) : super(key: key);
+
+  @override
+  _ChartsPageState createState() => _ChartsPageState();
+}
+
+class _ChartsPageState extends State<ChartsPage> {
+  bool _pressedButtonSevenDays = false;
+  bool _pressedButtonMonthDays = false;
+  bool _pressedButtonAllDays = false;
 
   @override
   Widget build(BuildContext context) {
     final sizeScreen = MediaQuery.of(context).size;
 
     WeightsController weightsController = Get.find();
-
-    print("+++++++++++++++");
-    print(" -- weights list --");
-    weightsController.weightsChartList.forEach((element) {
-      print(element.dateTime + " // " + element.weight.toString());
-    });
-    print("+++++++++++++++");
+    _pressedButtonAllDays = weightsController.averAlldays.value;
 
     return SafeArea(
       child: Scaffold(
@@ -56,11 +59,105 @@ class ChartsPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    //TODO add animated container for pressing button
-                    Text("1"),
-                    Text("2"),
-                    Text("3"),
-                    Text("43"),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 5,
+                              primary: !_pressedButtonSevenDays
+                                  ? colorButtons
+                                  : Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              if (!_pressedButtonSevenDays) {
+                                _pressedButtonSevenDays =
+                                    !_pressedButtonSevenDays;
+                                weightsController.changeAverSevenDays(
+                                    _pressedButtonSevenDays);
+                              }
+
+                              if (_pressedButtonMonthDays) {
+                                _pressedButtonMonthDays =
+                                    !_pressedButtonMonthDays;
+                              }
+                              if (_pressedButtonAllDays) {
+                                _pressedButtonAllDays = !_pressedButtonAllDays;
+                                weightsController
+                                    .changeAverAllDays(_pressedButtonAllDays);
+                              }
+                            });
+                          },
+                          child: Text("Неделя"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 5,
+                              primary: !_pressedButtonMonthDays
+                                  ? colorButtons
+                                  : Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              if (!_pressedButtonMonthDays) {
+                                _pressedButtonMonthDays =
+                                    !_pressedButtonMonthDays;
+                              }
+
+                              if (_pressedButtonSevenDays) {
+                                _pressedButtonSevenDays =
+                                    !_pressedButtonSevenDays;
+                                weightsController.changeAverSevenDays(
+                                    _pressedButtonSevenDays);
+                              }
+                              if (_pressedButtonAllDays) {
+                                _pressedButtonAllDays = !_pressedButtonAllDays;
+                                weightsController
+                                    .changeAverAllDays(_pressedButtonAllDays);
+                              }
+                            });
+                          },
+                          child: Text("Месяц"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 5,
+                              primary: !_pressedButtonAllDays
+                                  ? colorButtons
+                                  : Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              if (!_pressedButtonAllDays) {
+                                _pressedButtonAllDays = !_pressedButtonAllDays;
+                                weightsController
+                                    .changeAverAllDays(_pressedButtonAllDays);
+                              }
+
+                              if (_pressedButtonSevenDays) {
+                                _pressedButtonSevenDays =
+                                    !_pressedButtonSevenDays;
+                                weightsController.changeAverSevenDays(
+                                    _pressedButtonSevenDays);
+                              }
+                              if (_pressedButtonMonthDays) {
+                                _pressedButtonMonthDays =
+                                    !_pressedButtonMonthDays;
+                              }
+                            });
+                          },
+                          child: Text("Всего"),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 Container(

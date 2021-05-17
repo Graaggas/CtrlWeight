@@ -7,6 +7,9 @@ import 'package:jiffy/jiffy.dart';
 class WeightsController extends GetxController {
   final database = Database();
 
+  var averAlldays = false.obs;
+  var averSevenDays = false.obs;
+
   var weightsChartList = <WeightChart>[].obs;
 
   var weightsList = <double>[].obs;
@@ -28,6 +31,18 @@ class WeightsController extends GetxController {
   var averageWeightFourteenDays = 0.0.obs;
 
   var averageWeightMonth = 0.0.obs;
+
+  void changeAverAllDays(bool value) {
+    print("CHANGING AVERALLDAYS = $value");
+    averAlldays.value = value;
+    update();
+  }
+
+  void changeAverSevenDays(bool value) {
+    print("CHANGING SEVENDAYS = $value");
+    averSevenDays.value = value;
+    update();
+  }
 
   Future<void> getMonthsAverage(
       {RxList<DateTime> timeDatesList,
@@ -338,28 +353,29 @@ class WeightsController extends GetxController {
   void updateWeightChartList() {
     weightsChartList.clear();
 
-    String date = '';
+    DateTime date = DateTime.now();
 
     for (int i = 0; i < weightsList.length; i++) {
       // if (weightsList.length <= 3) {
       //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).toString();
       // } else if (weightsList.length > 3 && weightsList.length <= 5) {
-      date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
+      // date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
+      date = timeList[i];
       // } else {
       //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
       // }
 
-      if (weightsList.length >= 7) {
-        date =
-            date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
-      }
+      // if (weightsList.length >= 7) {
+      //   date =
+      //       date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
+      // }
 
       weightsChartList.add(WeightChart(dateTime: date, weight: weightsList[i]));
     }
 
     print("___________________");
     weightsChartList.forEach((element) {
-      print(element.dateTime + " // " + element.weight.toString());
+      print(element.dateTime.toString() + " // " + element.weight.toString());
     });
     print("___________________");
     update();

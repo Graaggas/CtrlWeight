@@ -45,6 +45,7 @@ class WeightsPage extends StatelessWidget {
               children: <Widget>[
                 Obx(
                   () => ListView.builder(
+                      reverse: true,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: weightsController.weightsList.length,

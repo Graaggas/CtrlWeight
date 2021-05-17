@@ -1,5 +1,5 @@
 class WeightChart {
-  final String dateTime;
+  final DateTime dateTime;
   final double weight;
 
   WeightChart({this.dateTime, this.weight});

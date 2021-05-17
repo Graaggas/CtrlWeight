@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
@@ -12,6 +13,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WeightsController weightsController = Get.find();
+
     return Drawer(
       elevation: 6,
       child: ListView(
@@ -74,6 +77,7 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
+              weightsController.averAlldays.value = true;
               Navigator.pop(context2);
               Get.toNamed("/charts_screen");
             },
