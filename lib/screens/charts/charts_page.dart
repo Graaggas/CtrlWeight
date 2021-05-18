@@ -1,5 +1,4 @@
 import 'package:ctrl_weight/controllers/weightsController.dart';
-import 'package:ctrl_weight/misc/chart_data.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/misc/customAppBar.dart';
 import 'package:ctrl_weight/screens/charts/components/chart_comp.dart';
@@ -65,120 +64,126 @@ class _ChartsPageState extends State<ChartsPage> {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                              primary: !_pressedButtonSevenDays
-                                  ? colorButtons
-                                  : Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              if (!_pressedButtonSevenDays) {
-                                _pressedButtonSevenDays =
-                                    !_pressedButtonSevenDays;
-                                weightsController.changeAverSevenDays(
-                                    _pressedButtonSevenDays);
-                              }
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                primary: !_pressedButtonSevenDays
+                                    ? colorButtons
+                                    : Colors.red),
+                            onPressed: () {
+                              setState(() {
+                                if (!_pressedButtonSevenDays) {
+                                  _pressedButtonSevenDays =
+                                      !_pressedButtonSevenDays;
+                                  weightsController.changeAverSevenDays(
+                                      _pressedButtonSevenDays);
+                                }
 
-                              if (_pressedButtonMonthDays) {
-                                _pressedButtonMonthDays =
-                                    !_pressedButtonMonthDays;
-                                weightsController
-                                    .changeAverMonth(_pressedButtonMonthDays);
-                              }
-                              if (_pressedButtonAllDays) {
-                                _pressedButtonAllDays = !_pressedButtonAllDays;
-                                weightsController
-                                    .changeAverAllDays(_pressedButtonAllDays);
-                              }
-                              print(
-                                  "in setState: 7days = $_pressedButtonSevenDays");
-                            });
-                          },
-                          child: Text("Неделя"),
+                                if (_pressedButtonMonthDays) {
+                                  _pressedButtonMonthDays =
+                                      !_pressedButtonMonthDays;
+                                  weightsController
+                                      .changeAverMonth(_pressedButtonMonthDays);
+                                }
+                                if (_pressedButtonAllDays) {
+                                  _pressedButtonAllDays =
+                                      !_pressedButtonAllDays;
+                                  weightsController
+                                      .changeAverAllDays(_pressedButtonAllDays);
+                                }
+                                print(
+                                    "in setState: 7days = $_pressedButtonSevenDays");
+                              });
+                            },
+                            child: Text("Неделя"),
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                              primary: !_pressedButtonMonthDays
-                                  ? colorButtons
-                                  : Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              if (!_pressedButtonMonthDays) {
-                                _pressedButtonMonthDays =
-                                    !_pressedButtonMonthDays;
-                                weightsController
-                                    .changeAverMonth(_pressedButtonMonthDays);
-                              }
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                primary: !_pressedButtonMonthDays
+                                    ? colorButtons
+                                    : Colors.red),
+                            onPressed: () {
+                              setState(() {
+                                if (!_pressedButtonMonthDays) {
+                                  _pressedButtonMonthDays =
+                                      !_pressedButtonMonthDays;
+                                  weightsController
+                                      .changeAverMonth(_pressedButtonMonthDays);
+                                }
 
-                              if (_pressedButtonSevenDays) {
-                                _pressedButtonSevenDays =
-                                    !_pressedButtonSevenDays;
-                                weightsController.changeAverSevenDays(
-                                    _pressedButtonSevenDays);
-                              }
-                              if (_pressedButtonAllDays) {
-                                _pressedButtonAllDays = !_pressedButtonAllDays;
-                                weightsController
-                                    .changeAverAllDays(_pressedButtonAllDays);
-                              }
-                              print(
-                                  "in setState: month = $_pressedButtonMonthDays");
-                            });
-                          },
-                          child: Text("Месяц"),
+                                if (_pressedButtonSevenDays) {
+                                  _pressedButtonSevenDays =
+                                      !_pressedButtonSevenDays;
+                                  weightsController.changeAverSevenDays(
+                                      _pressedButtonSevenDays);
+                                }
+                                if (_pressedButtonAllDays) {
+                                  _pressedButtonAllDays =
+                                      !_pressedButtonAllDays;
+                                  weightsController
+                                      .changeAverAllDays(_pressedButtonAllDays);
+                                }
+                                print(
+                                    "in setState: month = $_pressedButtonMonthDays");
+                              });
+                            },
+                            child: Text("Месяц"),
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                              primary: !_pressedButtonAllDays
-                                  ? colorButtons
-                                  : Colors.red),
-                          onPressed: () {
-                            setState(() {
-                              if (!_pressedButtonAllDays) {
-                                _pressedButtonAllDays = !_pressedButtonAllDays;
-                                weightsController
-                                    .changeAverAllDays(_pressedButtonAllDays);
-                              }
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                primary: !_pressedButtonAllDays
+                                    ? colorButtons
+                                    : Colors.red),
+                            onPressed: () {
+                              setState(() {
+                                if (!_pressedButtonAllDays) {
+                                  _pressedButtonAllDays =
+                                      !_pressedButtonAllDays;
+                                  weightsController
+                                      .changeAverAllDays(_pressedButtonAllDays);
+                                }
 
-                              if (_pressedButtonSevenDays) {
-                                _pressedButtonSevenDays =
-                                    !_pressedButtonSevenDays;
-                                weightsController.changeAverSevenDays(
-                                    _pressedButtonSevenDays);
-                              }
-                              if (_pressedButtonMonthDays) {
-                                _pressedButtonMonthDays =
-                                    !_pressedButtonMonthDays;
-                                weightsController
-                                    .changeAverMonth(_pressedButtonMonthDays);
-                              }
-                              print(
-                                  "in setState: alldays = $_pressedButtonAllDays");
-                            });
-                          },
-                          child: Text("Всего"),
+                                if (_pressedButtonSevenDays) {
+                                  _pressedButtonSevenDays =
+                                      !_pressedButtonSevenDays;
+                                  weightsController.changeAverSevenDays(
+                                      _pressedButtonSevenDays);
+                                }
+                                if (_pressedButtonMonthDays) {
+                                  _pressedButtonMonthDays =
+                                      !_pressedButtonMonthDays;
+                                  weightsController
+                                      .changeAverMonth(_pressedButtonMonthDays);
+                                }
+                                print(
+                                    "in setState: alldays = $_pressedButtonAllDays");
+                              });
+                            },
+                            child: Text("Всего"),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height / 2,

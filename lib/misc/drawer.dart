@@ -91,6 +91,8 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             onTap: () {
+              Navigator.pop(context2);
+              Get.toNamed("/change_start_values_screen");
               // Get.toNamed("/dashboard_screen");
             },
           ),
