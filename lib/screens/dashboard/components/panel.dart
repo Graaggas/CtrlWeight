@@ -146,7 +146,7 @@ class Panel extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "$startValue$measure",
+                    "${startValue.toStringAsFixed(2)}$measure",
                     style: GoogleFonts.play(
                       color: colorTextInWhitePanels,
                       fontSize: 16,
@@ -154,7 +154,7 @@ class Panel extends StatelessWidget {
                   ),
                   Expanded(child: Container()),
                   Text(
-                    "$wantedValue$measure",
+                    "${wantedValue.toStringAsFixed(2)}$measure",
                     style: GoogleFonts.play(
                       color: colorTextInWhitePanels,
                       fontSize: 16,

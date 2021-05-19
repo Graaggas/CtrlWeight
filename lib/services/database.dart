@@ -73,6 +73,14 @@ class Database {
     weightModel.save();
   }
 
+  Future<void> updateWaiste(double value, DateTime keyDate) async {
+    final box = await openBox("Waiste");
+    WaisteModel waisteModel = box.getAt(0);
+    print("Getting key = $keyDate, new value = $value");
+    waisteModel.waisteMap[keyDate] = value;
+    waisteModel.save();
+  }
+
   Future<void> deleteWeight(int index) async {
     final box = await openBox("Weight");
     WeightModel weightModel = box.getAt(0);
@@ -80,6 +88,8 @@ class Database {
     DateTime keyToDelete;
     weightModel.weightMap.forEach((key, value) {
       if (i == index) {
+        print("deleting value of weight = $value");
+        i++;
         keyToDelete = key;
       } else {
         i++;
@@ -88,6 +98,24 @@ class Database {
     if (keyToDelete != null) {
       weightModel.weightMap.remove(keyToDelete);
       weightModel.save();
+    }
+  }
+
+  Future<void> deleteWaiste(int index) async {
+    final box = await openBox("Waiste");
+    WaisteModel waisteModel = box.getAt(0);
+    int i = 0;
+    DateTime keyToDelete;
+    waisteModel.waisteMap.forEach((key, value) {
+      if (i == index) {
+        keyToDelete = key;
+      } else {
+        i++;
+      }
+    });
+    if (keyToDelete != null) {
+      waisteModel.waisteMap.remove(keyToDelete);
+      waisteModel.save();
     }
   }
 

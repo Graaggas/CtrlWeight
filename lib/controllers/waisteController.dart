@@ -1,8 +1,22 @@
+import 'package:ctrl_weight/misc/avers.dart';
+import 'package:ctrl_weight/misc/chart_data.dart';
 import 'package:ctrl_weight/services/database.dart';
 import 'package:get/get.dart';
 
 class WaisteController extends GetxController {
   final database = Database();
+
+  var averageWeightAllDays = 0.0.obs;
+
+  var averageWeightSevenDays = 0.0.obs;
+
+  var averageWeightFourteenDays = 0.0.obs;
+
+  var averageWeightMonth = 0.0.obs;
+
+  var averAlldays = false.obs;
+  var averSevenDays = false.obs;
+  var averMonth = false.obs;
 
   var waisteList = <double>[].obs;
 
@@ -15,6 +29,104 @@ class WaisteController extends GetxController {
   var currentWaiste = 0.0.obs;
 
   var startWaiste = 0.0.obs;
+
+  var diffWaiste = 0.0.obs;
+
+  var waisteChartList = <WaisteChart>[].obs;
+
+  void changeAverAllDays(bool value) {
+    averAlldays.value = value;
+    update();
+  }
+
+  void changeAverMonth(bool value) {
+    averMonth.value = value;
+    update();
+  }
+
+  void changeAverSevenDays(bool value) {
+    averSevenDays.value = value;
+    update();
+  }
+
+  void getWaisteDiff() {
+    if (waisteList.length == 1) {
+      diffWaiste.value = 0.0;
+    } else if (waisteList.isNotEmpty) {
+      diffWaiste.value =
+          currentWaiste.value - waisteList[waisteList.length - 2];
+    }
+  }
+
+  Future<void> deleteWaiste(int index) async {
+    await database.deleteWaiste(index);
+    waisteList.removeAt(index);
+    timeList.removeAt(index);
+    if (waisteList.isNotEmpty) {
+      currentWaiste.value = waisteList.last;
+    } else {
+      currentWaiste.value = 0;
+    }
+
+    if (index == 0) {
+      if (waisteList.isNotEmpty) {
+        startWaiste.value = waisteList.first;
+      } else
+        startWaiste.value = 0.0;
+    }
+    update();
+    getWaisteDiff();
+    getSevenDaysAverage(
+      valuesList: waisteList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: waisteList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: waisteList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: waisteList,
+    );
+    updateWaisteChartList();
+  }
+
+  void updateWaisteChartList() {
+    DateTime date = DateTime.now();
+
+    for (int i = 0; i < waisteList.length; i++) {
+      // if (weightsList.length <= 3) {
+      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).toString();
+      // } else if (weightsList.length > 3 && weightsList.length <= 5) {
+      // date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
+      date = timeList[i];
+      // } else {
+      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
+      // }
+
+      // if (weightsList.length >= 7) {
+      //   date =
+      //       date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
+      // }
+
+      waisteChartList.add(WaisteChart(dateTime: date, waiste: waisteList[i]));
+    }
+
+    print("___________________");
+    waisteChartList.forEach((element) {
+      print(element.dateTime.toString() + " // " + element.waiste.toString());
+    });
+    print("___________________");
+    update();
+  }
 
   Future<void> addWaiste(double value) async {
     await database.addWaiste(value);
@@ -61,6 +173,29 @@ class WaisteController extends GetxController {
     }
 
     super.onInit();
+    update();
+    getWaisteDiff();
+    getSevenDaysAverage(
+      valuesList: waisteList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: waisteList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: waisteList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: waisteList,
+    );
+    updateWaisteChartList();
   }
 
   @override
@@ -71,5 +206,34 @@ class WaisteController extends GetxController {
     // wantedWaiste.value = 0.49 * height.value;
     // print('WANTEDWAISTE: ${wantedWaiste.value}');
     super.onReady();
+  }
+
+  Future<void> updateWaiste(int index, double value, DateTime date) async {
+    await database.updateWaiste(value, date);
+    currentWaiste.value = value;
+    waisteList[index] = value;
+    update();
+    getWaisteDiff();
+    getSevenDaysAverage(
+      valuesList: waisteList,
+      timeDateList: timeList,
+      averageRx: averageWeightSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: waisteList,
+      timeDatesList: timeList,
+      averageRX: averageWeightMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: waisteList,
+      listOfDates: timeList,
+      averageRx: averageWeightFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWeightAllDays,
+      listOfDates: timeList,
+      valuesList: waisteList,
+    );
+    updateWaisteChartList();
   }
 }

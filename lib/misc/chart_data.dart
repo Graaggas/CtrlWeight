@@ -10,3 +10,10 @@ class WeightChart {
 //   WeightChart(dateTime: DateTime.now().toString(), weight: 220),
 //   WeightChart(dateTime: DateTime.now().toString(), weight: 120),
 // ];
+
+class WaisteChart {
+  final DateTime dateTime;
+  final double waiste;
+
+  WaisteChart({this.dateTime, this.waiste});
+}

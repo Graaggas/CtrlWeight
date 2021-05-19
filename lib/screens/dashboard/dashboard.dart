@@ -77,9 +77,15 @@ class DashboardScreen extends StatelessWidget {
                       size: sizeScreen,
                       currentText: "ТЕКУЩИЙ ОБЪЕМ",
                       currentValue: waisteController.currentWaiste.value,
-                      currentDiff: 11.1,
+                      currentDiff: waisteController.diffWaiste.value,
                       measure: " см",
-                      valueOfFill: 3,
+                      valueOfFill: waisteController.startWaiste.value <
+                              waisteController.currentWaiste.value
+                          ? 10000
+                          : (waisteController.startWaiste.value -
+                                  waisteController.wantedWaiste.value) /
+                              (waisteController.startWaiste.value -
+                                  waisteController.currentWaiste.value),
                       startValue: waisteController.startWaiste.value,
                       wantedValue: waisteController.wantedWaiste.value,
                       colorStart: colorWaisteProgressLineStart,

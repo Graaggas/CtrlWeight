@@ -65,7 +65,10 @@ class CustomDrawer extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context2);
+              Get.toNamed("/waistes_screen");
+            },
           ),
 
           ListTile(
