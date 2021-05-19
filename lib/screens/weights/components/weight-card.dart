@@ -32,7 +32,7 @@ class _WeightCardState extends State<WeightCard> {
             title: Text('Корректировка значения'),
             content: TextFormField(
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+                FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,1}"))
               ],
               controller: _textFieldController,
               textInputAction: TextInputAction.go,
@@ -103,7 +103,7 @@ class _WeightCardState extends State<WeightCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      widget.weight.toString(),
+                      widget.weight.toStringAsFixed(1),
                       style: TextStyle(
                           fontSize: 24, color: colorTextInWhitePanels),
                     ),
@@ -111,11 +111,11 @@ class _WeightCardState extends State<WeightCard> {
                         ? Container()
                         : diff >= 0
                             ? Text(
-                                "+${diff.toStringAsFixed(2)}",
+                                "+${diff.toStringAsFixed(1)}",
                                 style: TextStyle(color: Colors.red),
                               )
                             : Text(
-                                diff.toStringAsFixed(2),
+                                diff.toStringAsFixed(1),
                                 style: TextStyle(color: Colors.green),
                               ),
                   ],
@@ -135,7 +135,7 @@ class _WeightCardState extends State<WeightCard> {
                           context: context,
                           title: "Предупреждение",
                           message:
-                              "Действительно удалить запись с весом ${widget.weight.toString()} кг?",
+                              "Действительно удалить запись с весом ${widget.weight.toStringAsFixed(1)} кг?",
                           okLabel: "Удалить",
                           alertStyle: AdaptiveStyle.material,
                           cancelLabel: "Отмена",
@@ -152,7 +152,8 @@ class _WeightCardState extends State<WeightCard> {
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                       onPressed: () async {
-                        _textFieldController.text = widget.weight.toString();
+                        _textFieldController.text =
+                            widget.weight.toStringAsFixed(1);
                         var r = await _displayDialogCorrection(context);
                         if (r == "SAVING") {
                           WeightsController weightsController = Get.find();

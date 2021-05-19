@@ -6,13 +6,13 @@ import 'package:get/get.dart';
 class WaisteController extends GetxController {
   final database = Database();
 
-  var averageWeightAllDays = 0.0.obs;
+  var averageWaisteAllDays = 0.0.obs;
 
-  var averageWeightSevenDays = 0.0.obs;
+  var averageWaisteSevenDays = 0.0.obs;
 
-  var averageWeightFourteenDays = 0.0.obs;
+  var averageWaisteFourteenDays = 0.0.obs;
 
-  var averageWeightMonth = 0.0.obs;
+  var averageWaistetMonth = 0.0.obs;
 
   var averAlldays = false.obs;
   var averSevenDays = false.obs;
@@ -79,20 +79,20 @@ class WaisteController extends GetxController {
     getSevenDaysAverage(
       valuesList: waisteList,
       timeDateList: timeList,
-      averageRx: averageWeightSevenDays,
+      averageRx: averageWaisteSevenDays,
     );
     getMonthsAverage(
       valuesList: waisteList,
       timeDatesList: timeList,
-      averageRX: averageWeightMonth,
+      averageRX: averageWaistetMonth,
     );
     getFourteenDaysAverage(
       valuesList: waisteList,
       listOfDates: timeList,
-      averageRx: averageWeightFourteenDays,
+      averageRx: averageWaisteFourteenDays,
     );
     getAllDaysAverage(
-      averageRx: averageWeightAllDays,
+      averageRx: averageWaisteAllDays,
       listOfDates: timeList,
       valuesList: waisteList,
     );
@@ -178,20 +178,20 @@ class WaisteController extends GetxController {
     getSevenDaysAverage(
       valuesList: waisteList,
       timeDateList: timeList,
-      averageRx: averageWeightSevenDays,
+      averageRx: averageWaisteSevenDays,
     );
     getMonthsAverage(
       valuesList: waisteList,
       timeDatesList: timeList,
-      averageRX: averageWeightMonth,
+      averageRX: averageWaistetMonth,
     );
     getFourteenDaysAverage(
       valuesList: waisteList,
       listOfDates: timeList,
-      averageRx: averageWeightFourteenDays,
+      averageRx: averageWaisteFourteenDays,
     );
     getAllDaysAverage(
-      averageRx: averageWeightAllDays,
+      averageRx: averageWaisteAllDays,
       listOfDates: timeList,
       valuesList: waisteList,
     );
@@ -217,20 +217,20 @@ class WaisteController extends GetxController {
     getSevenDaysAverage(
       valuesList: waisteList,
       timeDateList: timeList,
-      averageRx: averageWeightSevenDays,
+      averageRx: averageWaisteSevenDays,
     );
     getMonthsAverage(
       valuesList: waisteList,
       timeDatesList: timeList,
-      averageRX: averageWeightMonth,
+      averageRX: averageWaistetMonth,
     );
     getFourteenDaysAverage(
       valuesList: waisteList,
       listOfDates: timeList,
-      averageRx: averageWeightFourteenDays,
+      averageRx: averageWaisteFourteenDays,
     );
     getAllDaysAverage(
-      averageRx: averageWeightAllDays,
+      averageRx: averageWaisteAllDays,
       listOfDates: timeList,
       valuesList: waisteList,
     );

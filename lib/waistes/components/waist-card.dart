@@ -33,7 +33,7 @@ class _WaisteCardState extends State<WaisteCard> {
             title: Text('Корректировка значения'),
             content: TextFormField(
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+                FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,1}"))
               ],
               controller: _textFieldController,
               textInputAction: TextInputAction.go,
@@ -104,7 +104,7 @@ class _WaisteCardState extends State<WaisteCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      widget.waiste.toString(),
+                      widget.waiste.toStringAsFixed(1),
                       style: TextStyle(
                           fontSize: 24, color: colorTextInWhitePanels),
                     ),
@@ -112,11 +112,11 @@ class _WaisteCardState extends State<WaisteCard> {
                         ? Container()
                         : diff >= 0
                             ? Text(
-                                "+${diff.toStringAsFixed(2)}",
+                                "+${diff.toStringAsFixed(1)}",
                                 style: TextStyle(color: Colors.red),
                               )
                             : Text(
-                                diff.toStringAsFixed(2),
+                                diff.toStringAsFixed(1),
                                 style: TextStyle(color: Colors.green),
                               ),
                   ],
@@ -136,7 +136,7 @@ class _WaisteCardState extends State<WaisteCard> {
                           context: context,
                           title: "Предупреждение",
                           message:
-                              "Действительно удалить запись ${widget.waiste.toString()} кг?",
+                              "Действительно удалить запись ${widget.waiste.toStringAsFixed(1)} кг?",
                           okLabel: "Удалить",
                           alertStyle: AdaptiveStyle.material,
                           cancelLabel: "Отмена",
@@ -153,7 +153,8 @@ class _WaisteCardState extends State<WaisteCard> {
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                       onPressed: () async {
-                        _textFieldController.text = widget.waiste.toString();
+                        _textFieldController.text =
+                            widget.waiste.toStringAsFixed(1);
                         var r = await _displayDialogCorrection(context);
                         if (r == "SAVING") {
                           WaisteController waisteController = Get.find();

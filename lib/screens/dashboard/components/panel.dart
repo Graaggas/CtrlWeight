@@ -92,7 +92,7 @@ class Panel extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Text(
-                  "$currentValue $measure",
+                  "${currentValue.toStringAsFixed(1)} $measure",
                   style: GoogleFonts.play(
                     color: colorTextInPanels,
                     fontSize: 32,
@@ -124,14 +124,14 @@ class Panel extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                     child: currentDiff <= 0
                         ? Text(
-                            currentDiff.toStringAsFixed(2),
+                            currentDiff.toStringAsFixed(1),
                             style: GoogleFonts.play(
                               color: colorTextInWhitePanels,
                               fontSize: 20,
                             ),
                           )
                         : Text(
-                            "+${currentDiff.toStringAsFixed(2)}",
+                            "+${currentDiff.toStringAsFixed(1)}",
                             style: GoogleFonts.play(
                               color: colorTextInWhitePanels,
                               fontSize: 20,
@@ -146,7 +146,7 @@ class Panel extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "${startValue.toStringAsFixed(2)}$measure",
+                    "${startValue.toStringAsFixed(1)}$measure",
                     style: GoogleFonts.play(
                       color: colorTextInWhitePanels,
                       fontSize: 16,
@@ -154,7 +154,7 @@ class Panel extends StatelessWidget {
                   ),
                   Expanded(child: Container()),
                   Text(
-                    "${wantedValue.toStringAsFixed(2)}$measure",
+                    "${wantedValue.toStringAsFixed(1)}$measure",
                     style: GoogleFonts.play(
                       color: colorTextInWhitePanels,
                       fontSize: 16,

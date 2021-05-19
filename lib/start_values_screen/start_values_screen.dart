@@ -77,7 +77,7 @@ class _StartValuesScreenState extends State<StartValuesScreen> {
                       },
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                            RegExp(r"^\d+\.?\d{0,2}"))
+                            RegExp(r"^\d+\.?\d{0,1}"))
                       ],
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(

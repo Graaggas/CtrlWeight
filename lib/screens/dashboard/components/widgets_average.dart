@@ -8,23 +8,35 @@ class WidgetAverage extends StatelessWidget {
     @required this.sizeScreen,
     this.typeOfAverage,
     this.weightAverage,
+    this.waisteAverage,
   }) : super(key: key);
 
   final Size sizeScreen;
   final String typeOfAverage;
   final double weightAverage;
+  final double waisteAverage;
 
   @override
   Widget build(BuildContext context) {
     String averWeight = "...";
-    print("==> ${weightAverage.toStringAsFixed(2)}");
+    String averWaiste = "...";
     if (weightAverage == null) {
       averWeight = "";
     } else {
       if (weightAverage > 0)
-        averWeight = "+" + weightAverage.toStringAsFixed(2);
+        averWeight = "+" + weightAverage.toStringAsFixed(1);
       else
-        averWeight = weightAverage.toStringAsFixed(2);
+        averWeight = weightAverage.toStringAsFixed(1);
+    }
+
+    if (waisteAverage == null) {
+      averWaiste = "";
+    } else {
+      if (waisteAverage > 0) {
+        averWaiste = "+" + waisteAverage.toStringAsFixed(1);
+      } else {
+        averWaiste = waisteAverage.toStringAsFixed(1);
+      }
     }
 
     return Stack(
@@ -86,7 +98,7 @@ class WidgetAverage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "-9 см",
+                  "$averWaiste см",
                   style: GoogleFonts.play(
                     color: colorTextInWhitePanels,
                     fontSize: 22,

@@ -24,7 +24,8 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
 
   @override
   void initState() {
-    textWeightController.text = weightsController.wantedWeight.value.toString();
+    textWeightController.text =
+        weightsController.wantedWeight.value.toStringAsFixed(1);
     super.initState();
   }
 
@@ -102,7 +103,7 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                       },
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                            RegExp(r"^\d+\.?\d{0,2}"))
+                            RegExp(r"^\d+\.?\d{0,1}"))
                       ],
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.done,

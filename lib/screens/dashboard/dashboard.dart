@@ -104,6 +104,8 @@ class DashboardScreen extends StatelessWidget {
                           () => WidgetAverage(
                             weightAverage:
                                 weightsController.averageWeightSevenDays.value,
+                            waisteAverage:
+                                waisteController.averageWaisteSevenDays.value,
                             sizeScreen: sizeScreen,
                             typeOfAverage: "НЕДЕЛЯ",
                           ),
@@ -112,6 +114,8 @@ class DashboardScreen extends StatelessWidget {
                           () => WidgetAverage(
                             weightAverage: weightsController
                                 .averageWeightFourteenDays.value,
+                            waisteAverage: waisteController
+                                .averageWaisteFourteenDays.value,
                             sizeScreen: sizeScreen,
                             typeOfAverage: "14 ДНЕЙ",
                           ),
@@ -130,6 +134,8 @@ class DashboardScreen extends StatelessWidget {
                           () => WidgetAverage(
                             weightAverage:
                                 weightsController.averageWeightMonth.value,
+                            waisteAverage:
+                                waisteController.averageWaistetMonth.value,
                             sizeScreen: sizeScreen,
                             typeOfAverage: "МЕСЯЦ",
                           ),
@@ -138,6 +144,8 @@ class DashboardScreen extends StatelessWidget {
                           () => WidgetAverage(
                             weightAverage:
                                 weightsController.averageWeightAllDays.value,
+                            waisteAverage:
+                                waisteController.averageWaisteAllDays.value,
                             sizeScreen: sizeScreen,
                             typeOfAverage: "ВСЕГО",
                           ),

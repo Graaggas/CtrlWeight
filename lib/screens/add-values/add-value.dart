@@ -100,7 +100,7 @@ class _AddValuePageState extends State<AddValuePage> {
                     },
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
-                          RegExp(r"^\d+\.?\d{0,2}"))
+                          RegExp(r"^\d+\.?\d{0,1}"))
                     ],
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -126,45 +126,47 @@ class _AddValuePageState extends State<AddValuePage> {
                     constraints:
                         BoxConstraints.tightFor(width: 300, height: 50),
                     child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 5, primary: colorButtons),
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              //* save data via provider and go to dashboard
-                              if (widget.typeOfValue ==
-                                  ChoosingTypeOfValue.weight) {
-                                WeightsController weightController = Get.find();
-                                weightController.addWeight(double.parse(textController.text));
-                                // final providerWeight = watch(weightNotifierProvider);
-                                // providerWeight.addWeight(double.parse(
-                                //     textController.text.toString()));
-                                // context.read(weightNotifierProvider.notifier).addWeight(double.parse(textController.text.toString()));
-                              }
-                              if (widget.typeOfValue ==
-                                  ChoosingTypeOfValue.waiste) {
-                                // final providerWaiste = watch(waisteProvider);
-                                // providerWaiste.addWaiste(double.parse(
-                                //     textController.text.toString()));
+                      style: ElevatedButton.styleFrom(
+                          elevation: 5, primary: colorButtons),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          //* save data via provider and go to dashboard
+                          if (widget.typeOfValue ==
+                              ChoosingTypeOfValue.weight) {
+                            WeightsController weightController = Get.find();
+                            weightController
+                                .addWeight(double.parse(textController.text));
+                            // final providerWeight = watch(weightNotifierProvider);
+                            // providerWeight.addWeight(double.parse(
+                            //     textController.text.toString()));
+                            // context.read(weightNotifierProvider.notifier).addWeight(double.parse(textController.text.toString()));
+                          }
+                          if (widget.typeOfValue ==
+                              ChoosingTypeOfValue.waiste) {
+                            // final providerWaiste = watch(waisteProvider);
+                            // providerWaiste.addWaiste(double.parse(
+                            //     textController.text.toString()));
 
-                                WaisteController waisteController = Get.find();
-                                waisteController.addWaiste(double.parse(textController.text));
-                              }
+                            WaisteController waisteController = Get.find();
+                            waisteController
+                                .addWaiste(double.parse(textController.text));
+                          }
 
-                             Navigator.pop(context);
-                            } else {
-                              //* do nothing
-                            }
-                          },
-                          child: Text(
-                            "Добавить",
-                            style: GoogleFonts.play(
-                              color: colorTextIcons,
-                              fontSize: 18,
-                            ),
-                          ),
+                          Navigator.pop(context);
+                        } else {
+                          //* do nothing
+                        }
+                      },
+                      child: Text(
+                        "Добавить",
+                        style: GoogleFonts.play(
+                          color: colorTextIcons,
+                          fontSize: 18,
                         ),
+                      ),
                     ),
                   ),
+                ),
                 // ),
               ],
             ),
