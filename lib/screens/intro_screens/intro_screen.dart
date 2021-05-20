@@ -1,4 +1,5 @@
 import 'package:ctrl_weight/misc/colors.dart';
+import 'package:ctrl_weight/screens/intro_screens/first_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:getwidget/getwidget.dart';
@@ -45,9 +46,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     tileMode: TileMode.clamp,
                   ),
                 ),
-                child: Center(
-                  child: Text("111"),
-                ),
+                child: FirstScreen(),
               ),
             ),
           ),

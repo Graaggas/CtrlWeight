@@ -103,19 +103,7 @@ class WaisteController extends GetxController {
     DateTime date = DateTime.now();
 
     for (int i = 0; i < waisteList.length; i++) {
-      // if (weightsList.length <= 3) {
-      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).toString();
-      // } else if (weightsList.length > 3 && weightsList.length <= 5) {
-      // date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
       date = timeList[i];
-      // } else {
-      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
-      // }
-
-      // if (weightsList.length >= 7) {
-      //   date =
-      //       date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
-      // }
 
       waisteChartList.add(WaisteChart(dateTime: date, waiste: waisteList[i]));
     }
@@ -133,10 +121,6 @@ class WaisteController extends GetxController {
     await database.addWaiste(value);
     if (waisteList.isEmpty) {
       startWaiste.value = value;
-      // wantedWaiste.value = 0.49 * height.value;
-      // print('HEIGHT: ${height.value}');
-      // print("|WeightController|addWaiste\t wantedWaiste = $wantedWaiste");
-      // calculateWantedWaiste(height.value);
     }
     waisteList.add(value);
     timeList.add(DateTime.now());
