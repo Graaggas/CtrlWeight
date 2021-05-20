@@ -40,8 +40,11 @@ class _StartValuesScreenState extends State<StartValuesScreen> {
         appBar: MyCustomAppBar(
           height: size.height * 0.2,
           header: "НАЧАЛЬНЫЕ ЗНАЧЕНИЯ",
+          leftAppbarButton: LeftAppbarButton.backArrow,
+          rightAppbarButton: RightAppbarButton.empty,
         ),
         body: Container(
+          height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -114,7 +117,7 @@ class _StartValuesScreenState extends State<StartValuesScreen> {
                       },
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                            RegExp(r"^\d+\.?\d{0,2}"))
+                            RegExp(r"^\d+\.?\d{0,1}"))
                       ],
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(

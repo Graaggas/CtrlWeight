@@ -148,6 +148,8 @@ class _AddValuePageState extends State<AddValuePage> {
                             //     textController.text.toString()));
 
                             WaisteController waisteController = Get.find();
+                            print(
+                                "add-values-page.\t adding new waiste ${textController.text}");
                             waisteController
                                 .addWaiste(double.parse(textController.text));
                           }

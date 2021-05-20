@@ -20,7 +20,7 @@ class WaistesPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: colorBackgroindGradientStart,
         appBar: MyCustomAppBar(
-          typeOfAppBar: TypeOfAppBar.weight,
+          typeOfAppBar: TypeOfAppBar.waiste,
           height: sizeScreen.height * 0.2,
           header: "ЗАМЕРЫ ТАЛИИ",
           leftAppbarButton: LeftAppbarButton.backArrow,

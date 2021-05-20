@@ -2,7 +2,6 @@ import 'package:ctrl_weight/misc/avers.dart';
 import 'package:ctrl_weight/misc/chart_data.dart';
 import 'package:ctrl_weight/services/database.dart';
 import 'package:get/get.dart';
-import 'package:jiffy/jiffy.dart';
 
 class WeightsController extends GetxController {
   final database = Database();

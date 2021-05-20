@@ -129,6 +129,7 @@ class WaisteController extends GetxController {
   }
 
   Future<void> addWaiste(double value) async {
+    print("waisteController.\t adding new waiste $value");
     await database.addWaiste(value);
     if (waisteList.isEmpty) {
       startWaiste.value = value;
@@ -150,6 +151,7 @@ class WaisteController extends GetxController {
     wantedWaiste.value = 0.49 * value;
     print(
         "|WeightController|calculatingWantedWaiste\t wantedWaiste = $wantedWaiste");
+    update();
   }
 
   @override

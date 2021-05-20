@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/misc/customAppBar.dart';
@@ -19,13 +20,18 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
   final textWeightController = TextEditingController();
   final textHeightController = TextEditingController();
   WeightsController weightsController = Get.find();
+  WaisteController waisteController = Get.find();
 
   bool _saveWantedWeightButton = false;
+  bool _saveHeightButton = false;
 
   @override
   void initState() {
     textWeightController.text =
         weightsController.wantedWeight.value.toStringAsFixed(1);
+
+    textHeightController.text = waisteController.height.toStringAsFixed(1);
+
     super.initState();
   }
 
@@ -110,7 +116,6 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                       onFieldSubmitted: (value) {
                         setState(() {
                           textWeightController.text = value;
-                          print("!!!!!!!!! ${textWeightController.text}");
                         });
                       },
                       decoration: InputDecoration(
@@ -187,6 +192,12 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                             RegExp(r"^\d+\.?\d{0,2}"))
                       ],
                       keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (value) {
+                        setState(() {
+                          textHeightController.text = value;
+                        });
+                      },
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white, width: 0),
@@ -211,9 +222,15 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           elevation: 5, primary: colorButtons),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _saveHeightButton = true;
+                          waisteController.calculateWantedWaiste(
+                              double.parse(textHeightController.text));
+                        });
+                      },
                       child: Text(
-                        "Изменить рост",
+                        _saveWantedWeightButton ? "Сохранено" : "Изменить вес",
                         style: GoogleFonts.play(
                           color: colorTextIcons,
                           fontSize: 18,
