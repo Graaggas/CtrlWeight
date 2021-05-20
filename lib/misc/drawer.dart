@@ -1,3 +1,4 @@
+import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WeightsController weightsController = Get.find();
+    WaisteController waisteController = Get.find();
 
     return Drawer(
       elevation: 6,
@@ -47,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.list_alt),
             title: Text(
-              "ВЕСА",
+              "Вес",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -60,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.list_alt),
             title: Text(
-              "ЗАМЕРЫ ОБЪЕМОВ",
+              "Объем талии",
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -74,13 +76,15 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Boxicons.bx_chart),
             title: Text(
-              "ГРАФИКИ",
+              "Графики",
               style: TextStyle(
                 fontSize: 16,
               ),
             ),
             onTap: () {
               weightsController.averAlldays.value = true;
+              waisteController.averAlldays.value = true;
+
               Navigator.pop(context2);
               Get.toNamed("/charts_screen");
             },
@@ -88,7 +92,7 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.account_circle_outlined),
             title: Text(
-              "НАЧАЛЬНЫЕ ДАННЫЕ",
+              "Начальные данные",
               style: TextStyle(
                 fontSize: 16,
               ),

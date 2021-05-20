@@ -120,7 +120,7 @@ class WaisteController extends GetxController {
       waisteChartList.add(WaisteChart(dateTime: date, waiste: waisteList[i]));
     }
 
-    print("___________________");
+    print("___________waiste chart________");
     waisteChartList.forEach((element) {
       print(element.dateTime.toString() + " // " + element.waiste.toString());
     });
@@ -141,7 +141,8 @@ class WaisteController extends GetxController {
     waisteList.add(value);
     timeList.add(DateTime.now());
     currentWaiste.value = value;
-
+    updateWaisteChartList();
+    getWaisteDiff();
     update();
   }
 
@@ -149,9 +150,15 @@ class WaisteController extends GetxController {
     await database.calculateWantedWaiste(value);
     height.value = value;
     wantedWaiste.value = 0.49 * value;
-    print(
-        "|WeightController|calculatingWantedWaiste\t wantedWaiste = $wantedWaiste");
+
     update();
+  }
+
+  Future<void> getHeightFromHive() async {
+    var r = await database.getHeightFromHive();
+    if (r != null) {
+      height.value = r;
+    }
   }
 
   @override
@@ -176,6 +183,8 @@ class WaisteController extends GetxController {
 
     super.onInit();
     update();
+
+    getHeightFromHive();
     getWaisteDiff();
     getSevenDaysAverage(
       valuesList: waisteList,
@@ -214,6 +223,10 @@ class WaisteController extends GetxController {
     await database.updateWaiste(value, date);
     currentWaiste.value = value;
     waisteList[index] = value;
+
+    if (index == 0) {
+      startWaiste.value = value;
+    }
     update();
     getWaisteDiff();
     getSevenDaysAverage(

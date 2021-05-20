@@ -1,9 +1,11 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:ctrl_weight/controllers/waisteController.dart';
 import 'package:ctrl_weight/controllers/weightsController.dart';
 import 'package:ctrl_weight/misc/colors.dart';
 import 'package:ctrl_weight/misc/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,6 +31,8 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
   void initState() {
     textWeightController.text =
         weightsController.wantedWeight.value.toStringAsFixed(1);
+
+    print("=====> height : ${waisteController.height.value}");
 
     textHeightController.text = waisteController.height.toStringAsFixed(1);
 
@@ -61,6 +65,7 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
           leftAppbarButton: LeftAppbarButton.backArrow,
         ),
         body: Container(
+          height: double.infinity,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -82,7 +87,7 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
-                      "Начальный вес",
+                      "Желаемый вес",
                       style: GoogleFonts.play(
                         color: colorTextIcons,
                         fontSize: 18,
@@ -146,12 +151,23 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                           primary: _saveWantedWeightButton
                               ? Colors.green
                               : colorButtons),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           _saveWantedWeightButton = true;
                           weightsController.saveWantedWeight(
                               double.parse(textWeightController.text));
                         });
+
+                        await Flushbar(
+                          icon: Icon(
+                            Boxicons.bx_check,
+                            color: Colors.white,
+                          ),
+                          duration: Duration(seconds: 3),
+                          title: "Значение изменено",
+                          message:
+                              "Желаемый вес: ${weightsController.wantedWeight.value.toStringAsFixed(1)}",
+                        ).show(context);
                       },
                       child: Text(
                         _saveWantedWeightButton ? "Сохранено" : "Изменить вес",
@@ -209,6 +225,7 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                         fillColor: colorAppBarGradientStart,
                         filled: true,
                         hintText: 'Рост, см',
+                        enabled: _saveHeightButton ? false : true,
 
                         // enabled: checkController.getWaisteChecking
                         //     ? true
@@ -221,16 +238,29 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
                         BoxConstraints.tightFor(width: 300, height: 50),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          elevation: 5, primary: colorButtons),
-                      onPressed: () {
+                          elevation: 5,
+                          primary:
+                              _saveHeightButton ? Colors.green : colorButtons),
+                      onPressed: () async {
                         setState(() {
                           _saveHeightButton = true;
                           waisteController.calculateWantedWaiste(
                               double.parse(textHeightController.text));
                         });
+
+                        await Flushbar(
+                          icon: Icon(
+                            Boxicons.bx_check,
+                            color: Colors.white,
+                          ),
+                          duration: Duration(seconds: 3),
+                          title: "Значение изменено",
+                          message:
+                              "Желаемый объем талии пересчитан: ${((double.parse(textHeightController.text)) * 0.49).toStringAsFixed(1)}",
+                        ).show(context);
                       },
                       child: Text(
-                        _saveWantedWeightButton ? "Сохранено" : "Изменить вес",
+                        _saveHeightButton ? "Сохранено" : "Изменить рост",
                         style: GoogleFonts.play(
                           color: colorTextIcons,
                           fontSize: 18,

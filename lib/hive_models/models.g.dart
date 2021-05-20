@@ -58,19 +58,22 @@ class WaisteModelAdapter extends TypeAdapter<WaisteModel> {
     return WaisteModel()
       .._waisteMap = (fields[1] as Map)?.cast<DateTime, double>()
       .._wantedWaiste = fields[2] as double
-      .._startWaisteForCalculating = fields[3] as double;
+      .._startWaisteForCalculating = fields[3] as double
+      .._height = fields[4] as double;
   }
 
   @override
   void write(BinaryWriter writer, WaisteModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(1)
       ..write(obj._waisteMap)
       ..writeByte(2)
       ..write(obj._wantedWaiste)
       ..writeByte(3)
-      ..write(obj._startWaisteForCalculating);
+      ..write(obj._startWaisteForCalculating)
+      ..writeByte(4)
+      ..write(obj._height);
   }
 
   @override

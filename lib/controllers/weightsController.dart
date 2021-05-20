@@ -148,6 +148,9 @@ class WeightsController extends GetxController {
 //*+
   Future<void> updateWeight(int index, double value, DateTime date) async {
     await database.updateWeight(value, date);
+    if (index == 0) {
+      startWeight.value = value;
+    }
     currentWeight.value = value;
     weightsList[index] = value;
     update();

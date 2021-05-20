@@ -304,12 +304,24 @@ class Database {
         print("|Database|calculateWantedWaiste\t model = null");
       } else {
         model.addWantedWaiste(0.49 * value);
+        model.setHeight(value);
         model.save();
         print(
             "|Database|addWaiste\t list of waistes after adding value: {${model.waisteMap.values}}");
       }
     } catch (e) {
       print("|Database|calculateWantedWaiste\t error : $e");
+    }
+  }
+
+  Future<double> getHeightFromHive() async {
+    final box = await openBox("Waiste");
+    try {
+      WaisteModel model = box.getAt(0);
+      return model.height;
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
 //endregion

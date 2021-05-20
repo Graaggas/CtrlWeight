@@ -52,6 +52,11 @@ class WaisteModel extends HiveObject {
   @HiveField(3)
   double _startWaisteForCalculating;
 
+  @HiveField(4)
+  double _height;
+
+  double get height => _height;
+
   Map<DateTime, double> get waisteMap => _waisteMap;
 
   //* getters
@@ -73,6 +78,10 @@ class WaisteModel extends HiveObject {
 
   void addWantedWaiste(double value) {
     _wantedWaiste = value;
+  }
+
+  void setHeight(double value) {
+    _height = value;
   }
 }
 

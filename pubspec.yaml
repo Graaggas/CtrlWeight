@@ -26,8 +26,6 @@ dependencies:
   hive_generator: ^1.0.1
   hive_flutter: ^1.0.0
   path_provider: ^2.0.1
-  freezed: ^0.14.1+2
-  freezed_annotation: ^0.14.1
   getwidget: ^1.2.4
   google_fonts: ^2.0.0
   flutter_boxicons: ^2.0.2
@@ -40,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   jiffy: ^4.1.0
   fl_chart: ^0.36.1
+  another_flushbar: ^1.10.22
 
 dev_dependencies:
   flutter_test:
