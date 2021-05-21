@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            // child: Text('Drawer Header'),
+            child: Text(''),
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('logo.png'),

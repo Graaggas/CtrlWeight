@@ -125,9 +125,29 @@ class WaisteController extends GetxController {
     waisteList.add(value);
     timeList.add(DateTime.now());
     currentWaiste.value = value;
-    updateWaisteChartList();
-    getWaisteDiff();
     update();
+    getWaisteDiff();
+    getSevenDaysAverage(
+      valuesList: waisteList,
+      timeDateList: timeList,
+      averageRx: averageWaisteSevenDays,
+    );
+    getMonthsAverage(
+      valuesList: waisteList,
+      timeDatesList: timeList,
+      averageRX: averageWaistetMonth,
+    );
+    getFourteenDaysAverage(
+      valuesList: waisteList,
+      listOfDates: timeList,
+      averageRx: averageWaisteFourteenDays,
+    );
+    getAllDaysAverage(
+      averageRx: averageWaisteAllDays,
+      listOfDates: timeList,
+      valuesList: waisteList,
+    );
+    updateWaisteChartList();
   }
 
   Future<void> calculateWantedWaiste(double value) async {
