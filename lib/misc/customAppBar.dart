@@ -103,7 +103,6 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: colorTextIcons,
                       ),
                       onPressed: () {
-                        print("try to open drawer");
                         Scaffold.of(context).openDrawer();
                       },
                     ),
@@ -170,14 +169,10 @@ class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             );
                             switch (r) {
                               case ChoosingTypeOfValue.waiste:
-                                print(
-                                    "|CustomAppBar| adding new waiste choosed...");
                                 AddValuePage.show(
                                     context, ChoosingTypeOfValue.waiste);
                                 break;
                               case ChoosingTypeOfValue.weight:
-                                print(
-                                    "|CustomAppBar| adding new weight choosed...");
                                 AddValuePage.show(
                                     context, ChoosingTypeOfValue.weight);
                                 break;

@@ -7,15 +7,11 @@ class FirstMeetingFlagController extends GetxController {
   bool flag = true;
 
   Future<bool> getFlagFromHive() async {
-    print("|FirstFlagController|getFlagFromHive\t ...");
     var r = await database.getIsFirstMeetingFlag();
-    print("|FirstFlagController|getFlagFromHive\t flag: [$r]");
-    if(r == null){
+    if (r == null) {
       flag = true;
       update();
-
-    }
-    else{
+    } else {
       flag = r;
       update();
     }

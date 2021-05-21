@@ -33,19 +33,16 @@ class WeightsController extends GetxController {
   var averageWeightMonth = 0.0.obs;
 
   void changeAverAllDays(bool value) {
-    print("CHANGING AVERALLDAYS = $value");
     averAlldays.value = value;
     update();
   }
 
   void changeAverMonth(bool value) {
-    print("CHANGING AverMonth = $value");
     averMonth.value = value;
     update();
   }
 
   void changeAverSevenDays(bool value) {
-    print("CHANGING SEVENDAYS = $value");
     averSevenDays.value = value;
     update();
   }
@@ -69,10 +66,6 @@ class WeightsController extends GetxController {
     } else {
       currentWeight.value = 0;
     }
-    print("index of deleting = $index");
-
-    // print(
-    //     "|WeightController|deleteWeight\t after deleting currentWeight = ${currentWeight.value}");
 
     if (index == 0) {
       if (weightsList.isNotEmpty) {
@@ -141,7 +134,6 @@ class WeightsController extends GetxController {
   Future<void> saveWantedWeight(double value) async {
     await database.saveWantedWeight(value);
     wantedWeight.value = value;
-    print("|WeightController|saveWantedWeight\t wantedWeight = $wantedWeight");
     update();
   }
 
@@ -184,22 +176,16 @@ class WeightsController extends GetxController {
 
   @override
   void onInit() async {
-    print("===> try to init weightController");
     wantedWeight.value = await database.getWantedWeight();
-    print("|WeightController|onInit: wantedWeight = ${wantedWeight.value}");
 
     weightsList.value = await database.getWeights();
-    print("|WeightController|onInit: weightsList = $weightsList");
 
     timeList.value = await database.getTimeWeights();
-    print("|WeightController|onInit: timeList = $timeList");
 
     var r = await database.getWeights();
     if (r.isNotEmpty) {
       startWeight.value = r.first;
-      print("|WeightController|onInit: startWeight = ${startWeight.value}");
       currentWeight.value = r.last;
-      print("|WeightController|onInit: currentWeight = ${currentWeight.value}");
     }
 
     super.onInit();
@@ -230,7 +216,6 @@ class WeightsController extends GetxController {
 
   @override
   void onReady() {
-    print("===> Widget with weightController was rendered");
     super.onReady();
   }
 
@@ -240,28 +225,11 @@ class WeightsController extends GetxController {
     DateTime date = DateTime.now();
 
     for (int i = 0; i < weightsList.length; i++) {
-      // if (weightsList.length <= 3) {
-      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).toString();
-      // } else if (weightsList.length > 3 && weightsList.length <= 5) {
-      // date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 5);
       date = timeList[i];
-      // } else {
-      //   date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
-      // }
-
-      // if (weightsList.length >= 7) {
-      //   date =
-      //       date = DateFormat("dd.MM.yyyy").format(timeList[i]).substring(0, 1);
-      // }
 
       weightsChartList.add(WeightChart(dateTime: date, weight: weightsList[i]));
     }
 
-    print("___________________");
-    weightsChartList.forEach((element) {
-      print(element.dateTime.toString() + " // " + element.weight.toString());
-    });
-    print("___________________");
     update();
   }
 }

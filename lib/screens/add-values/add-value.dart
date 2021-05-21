@@ -136,20 +136,10 @@ class _AddValuePageState extends State<AddValuePage> {
                             WeightsController weightController = Get.find();
                             weightController
                                 .addWeight(double.parse(textController.text));
-                            // final providerWeight = watch(weightNotifierProvider);
-                            // providerWeight.addWeight(double.parse(
-                            //     textController.text.toString()));
-                            // context.read(weightNotifierProvider.notifier).addWeight(double.parse(textController.text.toString()));
                           }
                           if (widget.typeOfValue ==
                               ChoosingTypeOfValue.waiste) {
-                            // final providerWaiste = watch(waisteProvider);
-                            // providerWaiste.addWaiste(double.parse(
-                            //     textController.text.toString()));
-
                             WaisteController waisteController = Get.find();
-                            print(
-                                "add-values-page.\t adding new waiste ${textController.text}");
                             waisteController
                                 .addWaiste(double.parse(textController.text));
                           }

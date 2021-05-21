@@ -13,8 +13,6 @@ class Database {
     var model = box.getAt(0);
     model.isFirstMeetingFlag = false;
     model.save();
-    print(
-        "|Database|\t isFirstMeetingFlag changed to {${model.isFirstMeetingFlag.toString()}}");
   }
 
   Future<bool> getIsFirstMeetingFlag() async {
@@ -23,23 +21,15 @@ class Database {
       if (box.isNotEmpty) {
         var model = box.getAt(0);
         if (model == null) {
-          print(
-              "|Database|getFirstMeetingFlag\t isFirstMeetingModel is null. Returning true");
-
           return true;
         } else {
-          print(
-              "|Database|getFirstMeetingFlag\t  isFirstMeetingModel is not null. returning {${model.isFirstMeetingFlag}} from Hive Flag Model");
           return model.isFirstMeetingFlag;
         }
       } else {
-        print("|Database|\t box with isFirstFlag is empty ");
         // create and save in box
         var model = IsFirstMeetingFlagging();
         model.isFirstMeetingFlag = true;
         box.add(model);
-        // model = box.getAt(0);
-        // print("${model.isFirstMeetingFlag.toString()}");
 
         WeightModel modelWeight = WeightModel();
         // modelWeight.addWeight(0);
@@ -68,7 +58,6 @@ class Database {
   Future<void> updateWeight(double value, DateTime keyDate) async {
     final box = await openBox("Weight");
     WeightModel weightModel = box.getAt(0);
-    print("Getting key = $keyDate, new value = $value");
     weightModel.weightMap[keyDate] = value;
     weightModel.save();
   }
@@ -76,7 +65,6 @@ class Database {
   Future<void> updateWaiste(double value, DateTime keyDate) async {
     final box = await openBox("Waiste");
     WaisteModel waisteModel = box.getAt(0);
-    print("Getting key = $keyDate, new value = $value");
     waisteModel.waisteMap[keyDate] = value;
     waisteModel.save();
   }
@@ -88,7 +76,6 @@ class Database {
     DateTime keyToDelete;
     weightModel.weightMap.forEach((key, value) {
       if (i == index) {
-        print("deleting value of weight = $value");
         i++;
         keyToDelete = key;
       } else {
@@ -126,10 +113,7 @@ class Database {
       WeightModel model = box.getAt(0);
       model.weightMap.forEach((key, value) {
         list.add(value);
-        print("|Database|getWeights\t add weight to list: $value");
       });
-      print(
-          "|Database|getWeights\t transporting weight list to WeightProv: [$list]");
 
       return list;
     } catch (e) {
@@ -145,10 +129,7 @@ class Database {
       WeightModel model = box.getAt(0);
       model.weightMap.forEach((key, value) {
         list.add(key);
-        print("|Database|getWeights\t add time weight to list: $key");
       });
-      print(
-          "|Database|getWeights\t transporting time weight list to WeightProv: [$list]");
 
       return list;
     } catch (e) {
@@ -178,25 +159,16 @@ class Database {
         WeightModel model = box.getAt(0);
 
         if (model == null) {
-          print("|Database|\t Weight is null");
           return true;
         } else {
-          print(
-              "|Database|\t Weight is not null. old wanted Weight is {${model.wantedWeight.toString()}}");
-
           model.addWantedWeight(value);
           model.save();
-          print(
-              "|Database|\t Weight is not null. saving wanted Weight as {$value}");
         }
       } else {
-        print("|Database|\t box with Weights is empty ");
         // create and save in box
         var model = WeightModel();
         model.addWantedWeight(value);
         box.add(model);
-        print(
-            "|Database|\t Weight is not null. saving wanted Weight as {$value}");
       }
     } catch (e) {
       print(
@@ -209,14 +181,9 @@ class Database {
     try {
       WeightModel model = box.getAt(0);
       if (model == null) {
-        print("|Database|addWeight\t model = null");
       } else {
-        print("|Database|addWeight\t adding weight....");
-
         model.addWeight(value);
         model.save();
-        print(
-            "|Database|addWeight\t list of weights after adding value: {${model.weightMap.values}}");
       }
     } catch (e) {
       print("|Database|addWeight\t error when adding Weight: $e");
@@ -234,10 +201,7 @@ class Database {
       WaisteModel model = box.getAt(0);
       model.waisteMap.forEach((key, value) {
         list.add(value);
-        print("|Database|getWaistes\t add waiste to list: $value");
       });
-      print(
-          "|Database|getWaistes\t transporting waiste list to WeightProv: [$list]");
 
       return list;
     } catch (e) {
@@ -253,10 +217,7 @@ class Database {
       WaisteModel model = box.getAt(0);
       model.waisteMap.forEach((key, value) {
         list.add(key);
-        print("|Database|getTimeWaistes\t add time waiste to list: $key");
       });
-      print(
-          "|Database|getTimeWaistes\t transporting time waiste list to WeightProv: [$list]");
 
       return list;
     } catch (e) {
@@ -273,8 +234,6 @@ class Database {
       r = model.wantedWaiste;
       return r;
     } catch (e) {
-      print(
-          "|Database|getWantedWaiste\t error in getting WantedWaiste to Hive box, text of error : $e");
       return 0;
     }
   }
@@ -284,16 +243,11 @@ class Database {
     try {
       WaisteModel model = box.getAt(0);
       if (model == null) {
-        print("|Database|addWaiste\t model = null");
       } else {
         model.addWaiste(value);
         model.save();
-        print(
-            "|Database|addWaiste\t list of waistes after adding value: {${model.waisteMap.values}}");
       }
-    } catch (e) {
-      print("|Database|addWaiste\t error when adding Waiste: $e");
-    }
+    } catch (e) {}
   }
 
   Future<void> calculateWantedWaiste(double value) async {
@@ -301,17 +255,12 @@ class Database {
     try {
       WaisteModel model = box.getAt(0);
       if (model == null) {
-        print("|Database|calculateWantedWaiste\t model = null");
       } else {
         model.addWantedWaiste(0.49 * value);
         model.setHeight(value);
         model.save();
-        print(
-            "|Database|addWaiste\t list of waistes after adding value: {${model.waisteMap.values}}");
       }
-    } catch (e) {
-      print("|Database|calculateWantedWaiste\t error : $e");
-    }
+    } catch (e) {}
   }
 
   Future<double> getHeightFromHive() async {

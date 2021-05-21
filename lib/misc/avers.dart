@@ -19,16 +19,13 @@ Future<void> getFourteenDaysAverage(
       var r = Jiffy(listOfDates[i]);
 
       if (r.isBetween(firstOfFourteenDay, currentDay.add(days: 1))) {
-        // print("==> ${r.format("dd MMMM yyyy, hh:mm:ss")}");
         list.add(valuesList[i]);
       }
     }
 
     for (int i = 1; i < list.length; i++) {
       diff = list[i] - list[i - 1];
-      // print("${list[i]}-${list[i - 1]}");
       average7days = average7days + diff;
-      // print("aver = $average7days");
     }
 
     averageRx.value = average7days;

@@ -32,8 +32,6 @@ class _ChangeStartValuesPageState extends State<ChangeStartValuesPage> {
     textWeightController.text =
         weightsController.wantedWeight.value.toStringAsFixed(1);
 
-    print("=====> height : ${waisteController.height.value}");
-
     textHeightController.text = waisteController.height.toStringAsFixed(1);
 
     super.initState();

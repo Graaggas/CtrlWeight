@@ -108,16 +108,10 @@ class WaisteController extends GetxController {
       waisteChartList.add(WaisteChart(dateTime: date, waiste: waisteList[i]));
     }
 
-    print("___________waiste chart________");
-    waisteChartList.forEach((element) {
-      print(element.dateTime.toString() + " // " + element.waiste.toString());
-    });
-    print("___________________");
     update();
   }
 
   Future<void> addWaiste(double value) async {
-    print("waisteController.\t adding new waiste $value");
     await database.addWaiste(value);
     if (waisteList.isEmpty) {
       startWaiste.value = value;
@@ -167,22 +161,16 @@ class WaisteController extends GetxController {
 
   @override
   void onInit() async {
-    print("===> try to init waisteController");
     wantedWaiste.value = await database.getWantedWaiste();
-    print("|WeightController|onInit: wantedWaiste = ${wantedWaiste.value}");
 
     waisteList.value = await database.getWaistes();
-    print("|WeightController|onInit: waistesList = ;waisteList");
 
     timeList.value = await database.getTimeWaistes();
-    print("|WeightController|onInit: timeList = $timeList");
 
     var r = await database.getWaistes();
     if (r.isNotEmpty) {
       startWaiste.value = r.first;
-      print("|WeightController|onInit: startWeight = ${startWaiste.value}");
       currentWaiste.value = r.last;
-      print("|WeightController|onInit: currentWeight = ${currentWaiste.value}");
     }
 
     super.onInit();
@@ -215,11 +203,6 @@ class WaisteController extends GetxController {
 
   @override
   void onReady() {
-    print("===> Widget with waisteController was rendered");
-
-    // print('HEIGHT: ${height.value}');
-    // wantedWaiste.value = 0.49 * height.value;
-    // print('WANTEDWAISTE: ${wantedWaiste.value}');
     super.onReady();
   }
 

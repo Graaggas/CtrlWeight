@@ -105,8 +105,6 @@ class _ChartsPageState extends State<ChartsPage> {
                                   weightsController.changeAverAllDays(
                                       _pressedButtonAllDaysWeight);
                                 }
-                                print(
-                                    "in setState: 7days = $_pressedButtonSevenDaysWeight");
                               });
                             },
                             child: Text("Неделя"),
@@ -143,8 +141,6 @@ class _ChartsPageState extends State<ChartsPage> {
                                   weightsController.changeAverAllDays(
                                       _pressedButtonAllDaysWeight);
                                 }
-                                print(
-                                    "in setState: month = $_pressedButtonMonthDaysWeight");
                               });
                             },
                             child: Text("Месяц"),
@@ -181,8 +177,6 @@ class _ChartsPageState extends State<ChartsPage> {
                                   weightsController.changeAverMonth(
                                       _pressedButtonMonthDaysWeight);
                                 }
-                                print(
-                                    "in setState: alldays = $_pressedButtonAllDaysWeight");
                               });
                             },
                             child: Text("Всего"),
@@ -321,8 +315,6 @@ class _ChartsPageState extends State<ChartsPage> {
                                   waisteController.changeAverMonth(
                                       _pressedButtonMonthDaysWaiste);
                                 }
-                                print(
-                                    "in setState: alldays = $_pressedButtonAllDaysWeight");
                               });
                             },
                             child: Text("Всего"),
